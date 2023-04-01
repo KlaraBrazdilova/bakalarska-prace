@@ -132,5 +132,7 @@ while 1:
     A = B.transpose()
     old = A.copy()
     trans = not trans
-
+    
+if trans:
+    A = A.transpose()
 print(A)

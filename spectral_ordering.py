@@ -18,18 +18,25 @@ for i in range(n):
 
 #Laplacian matrix
 L = np.diag(np.diag(S)) - S
-print(L)
+
 #Eigenvalues and eigenvectors
 V, D = np.linalg.eig(L) #eig just for square arrray, eigvals for general matrix
-print(D)
-print(V)
 
 #eigenvector
-a = np.sort(V)
-b = a[-1]
-perm = np.sort(np.array(D[b])[0]) #chyba
+a = np.argsort(V)
+print(a)
+b = a[1]
+print(b)
+print(D[b])
+perm = np.argsort(D[b]) 
 
-column = V[:, perm]
+column = V[perm]
+print(column)
+
+
+
+
+
 
 #Fiedler's vector
 # column = V[:, 1]
