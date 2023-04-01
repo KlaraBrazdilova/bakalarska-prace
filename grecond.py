@@ -1,3 +1,4 @@
+import copy
 from numpy import matrix, sort, zeros, array, intersect1d, append, transpose
 import numpy as np
 from functools import reduce
@@ -56,79 +57,59 @@ def overlamp(U: matrix, ups, downs):
     return overlamp        
  
 def GreConD(I: matrix):
-    U = I.copy()
-    (width, height) = I.shape
-    A = matrix()
-    B = matrix()
-    #A = zeros((width, height)) # vetsi alokace height, muzou chybet sloupce
-    #B = zeros((height, width)) # vetsi alokace height - zkusit append, muzou chybet radky
+    U = copy.deepcopy(I)
+    (height, width) = I.shape
+    A = zeros((height,0))
+    B = zeros((0,width))
     best = my_struct()
     a = 0
-
+    tran_i = copy.deepcopy(I).transpose()
+    #print(I)
     while U.any():
         # indexy neprazdnych sloupcu
-        indexes = [i for i, column in enumerate(transpose(I)) if column.any()] #zbyvit se transponovani, zpomaluje to kod
+        indexes = [i for i, column in enumerate(tran_i) if column.any()] 
 
         while not len(best['cols']) == width and indexes:
             new_best = my_struct()
             for i in indexes:
                 downs = down_arrow(I, best['cols'] + [i])
                 ups = up_arrow(I, downs)
-                #overlamp = len(downs) * len(ups) #cover pocitat z U
-                over = overlamp(U, ups, downs)
-                if over > new_best['cover']:
+                cover = overlamp(U, ups, downs)
+                if cover > new_best['cover']:
                     new_best = my_struct(
-                        best['cols'] + [i], ups, downs, over)
+                        best['cols'] + [i], ups, downs, cover)
 
             if new_best['cover'] < best['cover']:
                 break
 
             best = new_best
-            [indexes.remove(id) for id, val in enumerate(
-                best['ups']) if val and id in indexes]
-        #print(best['downs'])
-        #for row in best['downs']:
-            # try:
-            #     A[row, a] = 1
-            # except IndexError:
-            #     A = np.append(A, zeros((1, A.shape[1])), axis=0)
-            #     A = np.append(A, zeros((A.shape[0], 1)), axis=1)
-            #     A[row, a] = 1    
-        new_row = zeros((1, n))
-        for row in best['downs']:
-            new_row[0, row] = 1
+            [indexes.remove(id) for id, val in enumerate(best['ups']) if val and id in indexes]
 
-        B = np.append(B, new_row, axis=0) #exis=0 pro přidání řádku, exis=1 pro přidání sloupce
 
-        new_col = zeros((m, 1))
-        for col in best['ups']:
-            new_col[col, 0] = 1
-            
-        A = np.append(A, new_col, axis=0) #exis=0 pro přidání řádku, exis=1 pro přidání sloupce
-
-        #for col in best['ups']:
-            # try:
-            #     B[a, col] = 1            
-            # except IndexError:
-            #     B = np.append(B, zeros((1, B.shape[1])), axis=0)
-            #     B = np.append(B, zeros((B.shape[0], 1)), axis=1)
-            #     B[a, col] = 1
-            
-
+        new_col = zeros((height, 1))
+        new_row = zeros((1, width))
+        #print(f"pred: {I}")
         for col in best['ups']: #zredukovat tento cyklus, opakuje se to
             for row in best['downs']:
                 U[row, col] = 0
+                tran_i[col, row] = 0
+                new_col[row, 0] = 1
 
-        #print(best['cover'], best['cols'], best['ups'], best['downs'])
-        print(f"iterace {a} vypadá {U}")
+            new_row[0, col] = 1   
+
+        A = np.append(A, new_col, axis=1) #exis=1 pro přidání sloupce
+        B = np.append(B, new_row, axis=0) #exis=0 pro přidání řádku
+        #print(f"po: {I}")
+        print(f"iterace {a} vypadá \n {U}")
         a += 1
         best = my_struct([], [], [], 0)
+        
 
-    print(A, B, I, U)    
+    print(f"{A} \n {B}")    
 
 
 matrix_test = matrix([[0, 0, 1, 1, 1, 1], [0, 1, 0, 1, 0, 1], [
-                     1, 1, 0, 0, 1, 1], [1, 0, 0, 1, 1, 0], [1, 0, 1, 1, 0, 0], [1, 1, 1, 0, 0, 0], [1, 1, 1, 0, 0, 0],[0, 0, 1, 1, 1, 1], [0, 1, 0, 1, 0, 1]])
+                     1, 1, 0, 0, 1, 1], [1, 0, 0, 1, 1, 0], [0, 0, 0, 1, 1, 0]])
 
 M = matrix([[1,0,0,1,0,0,1,1,1,1,0,0,0,0,1,0,0,0,0,0,1,1,0,0,0,0,0,0],
 [1,0,0,1,0,0,0,1,1,1,0,0,0,0,1,0,0,0,1,0,1,1,0,0,0,0,0,0],
@@ -233,4 +214,4 @@ M = matrix([[1,0,0,1,0,0,1,1,1,1,0,0,0,0,1,0,0,0,0,0,1,1,0,0,0,0,0,0],
 [0,1,1,0,1,0,0,0,1,1,0,0,0,1,0,0,0,0,1,0,0,0,1,0,0,0,0,0]]
 )#zoo dataset
 
-GreConD(matrix_test)
+GreConD(M)
