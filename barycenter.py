@@ -6,7 +6,8 @@ M = np.matrix([[0, 0, 1, 1, 1, 1], [0, 1, 0, 1, 0, 1], [
                      1, 1, 0, 0, 1, 1], [1, 0, 0, 1, 1, 0], [0, 0, 0, 1, 1, 0]])
 
 [m, n] = M.shape
-indexes = np.arange(1, max(m, n))
+indexes_cols = np.arange(1, n)
+indexes_rows = np.arange(1, m)
 A = M.copy()
 old = M.copy()
 
@@ -22,7 +23,9 @@ while 1:
         # pom = []
         # for j in range(A.shape[1]):
         #     pom.append(A[i,j] * indexes[i])
-        cost[i] = np.sum(np.multiply(A[i], indexes[i])) / np.sum(A[i, :])
+        print(indexes_rows.shape, indexes_cols.shape, A[i].shape)
+        print(np.multiply(A[i], indexes_rows))
+        cost[i] = np.sum(np.multiply(np.array(A[i])[0], indexes_rows[i])) / np.sum(A[i, :])
         print(cost[i])
 
         
