@@ -1,4 +1,5 @@
 import numpy as np
+import copy
 
 M = np.matrix([[0, 0, 1, 1, 1, 1], [0, 1, 0, 1, 0, 1], [
                      1, 1, 0, 0, 1, 1], [1, 0, 0, 1, 1, 0], [0, 0, 0, 1, 1, 0]])
@@ -8,7 +9,7 @@ M = M[np.random.permutation(m), :]
 M = M[:, np.random.permutation(n)]
 
 #spectralcluster
-Q = M.transpose()
+Q = copy.deepcopy(M).transpose()
 S = np.zeros((n, n))
 for i in range(n):
     for j in range(i, n):
@@ -24,24 +25,24 @@ V, D = np.linalg.eig(L) #eig just for square arrray, eigvals for general matrix
 
 #eigenvector
 a = np.argsort(V)
-print(a)
+# print(a)
 b = a[1]
-print(b)
-print(D[b])
+# print(b)
+# print(D[b])
 perm = np.argsort(D[b]) 
 
 column = V[perm]
 print(column)
 
+A = M[column]
+print(A)
 
-
-
-
+#radky k sobe pomoci max-sub array problem - co bude vyhodnejsi zmenit z 0 na 1 aby to bylo co nejlepší
 
 #Fiedler's vector
 # column = V[:, 1]
 # perm = np.sort(column, 'descend')
-# A = M[:, perm]
+
 
 #simple sorting
 # tosort = []
