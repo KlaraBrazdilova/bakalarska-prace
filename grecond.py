@@ -2,6 +2,8 @@ import copy
 from numpy import matrix, sort, zeros, array, intersect1d, append, transpose
 import numpy as np
 from functools import reduce
+from matrix_product import matrix_product
+from matrix_similarity import matrix_similarity
 
 
 def down_arrow(U: matrix, indexes):
@@ -100,12 +102,13 @@ def GreConD(I: matrix):
         A = np.append(A, new_col, axis=1) #exis=1 pro přidání sloupce
         B = np.append(B, new_row, axis=0) #exis=0 pro přidání řádku
         #print(f"po: {I}")
-        print(f"iterace {a} vypadá \n {U}")
+        # print(f"iterace {a} vypadá \n {U}")
         a += 1
         best = my_struct([], [], [], 0)
         
 
-    print(f"{A} \n {B}")    
+    # print(f"{A} \n {B}")    
+    return (A, B)
 
 
 matrix_test = matrix([[0, 0, 1, 1, 1, 1], [0, 1, 0, 1, 0, 1], [
@@ -214,4 +217,6 @@ M = matrix([[1,0,0,1,0,0,1,1,1,1,0,0,0,0,1,0,0,0,0,0,1,1,0,0,0,0,0,0],
 [0,1,1,0,1,0,0,0,1,1,0,0,0,1,0,0,0,0,1,0,0,0,1,0,0,0,0,0]]
 )#zoo dataset
 
-GreConD(M)
+A, B = GreConD(M)
+C = matrix_product(A, B)
+print(matrix_similarity(M, C))

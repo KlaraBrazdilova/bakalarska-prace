@@ -2,11 +2,12 @@ import numpy as np
 import copy
 
 M = np.matrix([[0, 0, 1, 1, 1, 1], [0, 1, 0, 1, 0, 1], [
-                     1, 1, 0, 0, 1, 1], [1, 0, 0, 1, 1, 0], [0, 0, 0, 1, 1, 0]])
+                     1, 1, 0, 0, 1, 1], [1, 0, 0, 1, 1, 0], [0, 0, 0, 1, 1, 0],  [0, 1, 0, 1, 1, 0]])
 
 [m, n] = M.shape
 M = M[np.random.permutation(m), :]
 M = M[:, np.random.permutation(n)]
+print(M)
 
 #spectralcluster
 Q = copy.deepcopy(M).transpose()
@@ -19,36 +20,22 @@ for i in range(n):
 
 #Laplacian matrix
 L = np.diag(np.diag(S)) - S
-
+# print(L)
 #Eigenvalues and eigenvectors
 V, D = np.linalg.eig(L) #eig just for square arrray, eigvals for general matrix
-
+# print(V)
+# print(D)
 #eigenvector
 a = np.argsort(V)
-# print(a)
 b = a[1]
-# print(b)
-# print(D[b])
-perm = np.argsort(D[b]) 
+perm = np.argsort(D[b])
 
 column = V[perm]
-print(column)
-
-A = M[column]
+# print(column)
+perm2 = np.argsort(column)[::-1][:n]
+# print(perm2) 
+# print(M.shape)
+A = M[perm2]
 print(A)
 
 #radky k sobe pomoci max-sub array problem - co bude vyhodnejsi zmenit z 0 na 1 aby to bylo co nejlepší
-
-#Fiedler's vector
-# column = V[:, 1]
-# perm = np.sort(column, 'descend')
-
-
-#simple sorting
-# tosort = []
-# for i in range(m):
-#     tosort.append(np.argwhere(A[i, :] == 1)[0])
-#     tosort.append(np.argwhere(A[i, :] == 1)[-1])
-
-# print(A)
-# print(tosort)
