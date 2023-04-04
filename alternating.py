@@ -108,22 +108,15 @@ M = np.matrix([[1,0,0,1,0,0,1,1,1,1,0,0,0,0,1,0,0,0,0,0,1,1,0,0,0,0,0,0],
 [0,1,1,0,1,0,0,0,1,1,0,0,0,1,0,0,0,0,1,0,0,0,1,0,0,0,0,0]]
 )#zoo dataset
 
-# M = np.zeros((12,10))
-
-# M = np.matrix(M)
-
 M = M[:, np.random.permutation(M.shape[1])]
 M = M[np.random.permutation(M.shape[0]), :]
 A = M
 no_of_iterations = 20
 
-print(A)
-
 for i in range(no_of_iterations):
     # utřídím řádky, transponuji matici a opakuji
     m, n = A.shape
 
-    #A = A[:, A[0, :].argsort()]
     W = A.copy()
     W[W == 1] = 1
     W[W == 0] = -1
@@ -138,7 +131,7 @@ for i in range(no_of_iterations):
     A = A[perm, :]
     A = A.transpose()
 
-print(A)
+
 fig, axs = plt.subplots(1, 2, figsize=(10, 5))
 axs[0].imshow(~M, cmap='gray')
 axs[0].set_title('Original')
