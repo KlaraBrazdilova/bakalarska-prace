@@ -1,5 +1,6 @@
+
 def max_sub_array(A):
-    n = len(A)
+    n = len(A)    
     max_ending_here = A[0]
     max_so_far = A[0]
     begin = 1
