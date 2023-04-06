@@ -11,15 +11,15 @@ def spectral_ordering(M: np.matrix) -> np.matrix:
     for i in range(n):
         for j in range(i, n):
             # Pearson's coeficient
-            pom = np.correlate(Q[:, i], Q[:, j])
-            S[i,j] = (1 + pom)/2 
-            S[j,i] = (1 + pom)/2 
+            # pom = np.correlate(Q[:, i], Q[:, j])
+            # S[i,j] = (1 + pom)/2 
+            # S[j,i] = (1 + pom)/2 
             
             # Jaccard's coeficient
-            # union = np.union1d(Q[:,i], Q[:,j])
-            # intersection = np.intersect1d(Q[:,i], Q[:,j])
-            # S[i,j] = union.size/intersection.size 
-            # S[j,i] = union.size/intersection.size 
+            union = np.union1d(Q[:,i], Q[:,j])
+            intersection = np.intersect1d(Q[:,i], Q[:,j])
+            S[i,j] = union.size/intersection.size 
+            S[j,i] = union.size/intersection.size 
 
     #Laplacian matrix
     L = np.diag(np.diag(S)) - S

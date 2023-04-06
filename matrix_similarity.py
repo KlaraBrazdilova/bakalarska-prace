@@ -3,7 +3,7 @@ import numpy as np
 def matrix_similarity(A: np.matrix, B: np.matrix) -> np.matrix:
     """Compute coverage quality of matrix A and matrix B."""
     
-    sum1 = np.sum(A-B)
+    sum1 = np.sum(A-B) #absolutní hodnotu přidat
     sum2 = np.sum(A)
     similarity = sum1/sum2
     return similarity
