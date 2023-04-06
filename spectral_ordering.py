@@ -18,8 +18,8 @@ def spectral_ordering(M: np.matrix) -> np.matrix:
             # Jaccard's coeficient
             union = np.union1d(Q[:,i], Q[:,j])
             intersection = np.intersect1d(Q[:,i], Q[:,j])
-            S[i,j] = union.size/intersection.size 
-            S[j,i] = union.size/intersection.size 
+            S[i,j] = intersection.size / union.size
+            S[j,i] = intersection.size / union.size
 
     #Laplacian matrix
     L = np.diag(np.diag(S)) - S
