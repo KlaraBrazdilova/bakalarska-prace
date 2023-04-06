@@ -10,7 +10,7 @@ def bfp(M: np.matrix):
     tosort = np.zeros((m, 2))
 
     for i in range(m):
-        x = max_sub_array(np.array(W[i])[0])
+        x = max_sub_array(W[i])
         tosort[i,0] = x[0]
         tosort[i,1] = x[1]       
 
