@@ -1,15 +1,17 @@
+import copy
 import numpy as np
+import matplotlib.pyplot as plt
+
 from grecond import GreConD
 from barycenter import barycenter
 from matrix_similarity import matrix_similarity
 from matrix_product import matrix_product
-import matplotlib.pyplot as plt
 from bidirectional_fixed_permutation import bfp
 from alternating import alternating
 from spectral_ordering import spectral_ordering
-import copy
 
-M = np.loadtxt("data/paleo.csv",
+
+M = np.loadtxt("data/chess.csv",
                  delimiter=",", dtype=int)
 vstup = copy.deepcopy(M)
 # M = np.matrix([[1,0,0,1,0,0,1,1,1,1,0,0,0,0,1,0,0,0,0,0,1,1,0,0,0,0,0,0],
@@ -121,6 +123,7 @@ banded = bfp(alternating)
 #product = matrix_product(A, B)
 #sim = matrix_similarity(product, banded)
 # print(factors)
+
 fig, axs = plt.subplots(1, 3, figsize=(10, 5))
 axs[0].imshow(~alternating, cmap='gray')
 axs[0].set_title('Spectral_ordering')
@@ -136,4 +139,4 @@ axs[2].set_title('Original')
 
 
 plt.show()
-np.savetxt("data/spectral-pearson-paleo.csv", banded, delimiter=",")
+np.savetxt("data/spectral-jackard-chess.csv", banded, delimiter=",")

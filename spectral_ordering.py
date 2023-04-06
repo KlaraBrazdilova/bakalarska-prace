@@ -1,6 +1,5 @@
 import numpy as np
 import copy
-from bidirectional_fixed_permutation import bfp
 
 def spectral_ordering(M: np.matrix) -> np.matrix:
     [m, n] = M.shape
@@ -8,21 +7,19 @@ def spectral_ordering(M: np.matrix) -> np.matrix:
     M = M[:, np.random.permutation(n)]
 
     Q = np.array(copy.deepcopy(M))
-    # print(Q)
     S = np.zeros((n, n))
-    # print(n)
     for i in range(n):
-        # print(i)
         for j in range(i, n):
-            # print(j)
-            #print(Q[:,i], Q[:,j])
-            pom = np.correlate(Q[:, i], Q[:, j]) #Pearson's coeficient
+            # Pearson's coeficient
+            pom = np.correlate(Q[:, i], Q[:, j])
+            S[i,j] = (1 + pom)/2 
+            S[j,i] = (1 + pom)/2 
+            
+            # Jaccard's coeficient
             # union = np.union1d(Q[:,i], Q[:,j])
             # intersection = np.intersect1d(Q[:,i], Q[:,j])
-            # S[i,j] = union.size/intersection.size #Jaccard's coeficient
-            # S[j,i] = union.size/intersection.size #Jaccard's coeficient
-            S[i,j] = (1 + pom)/2 #Pearson's coeficient
-            S[j,i] = (1 + pom)/2 #Pearson's coeficient
+            # S[i,j] = union.size/intersection.size 
+            # S[j,i] = union.size/intersection.size 
 
     #Laplacian matrix
     L = np.diag(np.diag(S)) - S
@@ -34,15 +31,8 @@ def spectral_ordering(M: np.matrix) -> np.matrix:
     a = np.argsort(V)
     b = a[1]
     perm = np.argsort(D[b])
-   
     column = V[perm]
-    
     perm2 = np.argsort(column)[::-1][:n]
-    
     A = M[:, perm2]
-    #radky k sobe pomoci max-sub array problem - co bude vyhodnejsi zmenit z 0 na 1 aby to bylo co nejlepší
-    return A
 
-# M = np.matrix([[0, 0, 1, 1, 1, 0], [0, 1, 0, 1, 0, 1], [
-#                      1, 1, 0, 0, 1, 1], [1, 0, 0, 1, 1, 0], [0, 0, 0, 1, 1, 0], [0, 1, 0, 1, 1, 0]])    
-# spectral_ordering(M)
+    return A

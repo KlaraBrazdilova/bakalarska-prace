@@ -24,6 +24,4 @@ def matrix_product(A: np.matrix, B: np.matrix) -> np.matrix:
                 if A[i, k] and B[k, j]:
                     C[i, j] = 1
 
-    print(C)
-
     return C            

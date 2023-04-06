@@ -1,4 +1,5 @@
 import numpy as np
+
 from max_sub_array import max_sub_array
 
     
@@ -18,8 +19,3 @@ def bfp(M: np.matrix):
     perm2 = np.argsort(tosort[:,1])
     A = M[perm]
     return A
-
-
-# M = np.matrix([[0, 0, 1, 1, 1], [0, 1, 0, 1, 0], [
-#                      1, 1, 0, 0, 1], [1, 0, 0, 1, 1], [0, 0, 0, 1, 1]])
-# bfp(M)
