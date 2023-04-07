@@ -1,5 +1,6 @@
-from matplotlib import pyplot as plt
+from matplotlib import cm, pyplot as plt
 import matplotlib
+from matplotlib.colors import ListedColormap
 import numpy as np
 import copy
 from banded_matrix import banded_matrix, banded_distance
@@ -19,8 +20,13 @@ M = np.loadtxt("data/barycenter-zoo.csv",
 vstup = copy.deepcopy(M)
 A, C = banded_ones(M, 10)  
 
-newcmp = matplotlib.colors.LinearSegmentedColormap.from_list("", ["white", "yellow", "black"])
+# newcmp = matplotlib.colors.LinearSegmentedColormap.from_list("", ["blue", "yellow", "pink"])
 
+viridis = cm.get_cmap('viridis', 256)
+newcolors = viridis(np.linspace(0, 1, 256))
+pink = np.array([248/256, 24/256, 148/256, 1])
+newcolors[:25, :] = pink
+newcmp = ListedColormap(newcolors)
 
 fig, axs = plt.subplots(1, 3, figsize=(10, 5))
 axs[0].imshow(vstup, cmap=newcmp)
