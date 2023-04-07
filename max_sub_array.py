@@ -3,8 +3,8 @@ def max_sub_array(A):
     n = len(A)    
     max_ending_here = A[0]
     max_so_far = A[0]
-    begin = 1
-    ending = 1
+    begin = 0
+    ending = 0
 
     for i in range(1, n):
         a = A[i]

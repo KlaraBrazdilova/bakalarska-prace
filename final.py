@@ -11,7 +11,7 @@ from alternating import alternating
 from spectral_ordering import spectral_ordering
 
 
-# M = np.loadtxt("data/paleo.csv",
+# M = np.loadtxt("data/mushroom.csv",
 #                  delimiter=",", dtype=int)
 # vstup = copy.deepcopy(M)
 M = np.matrix([[1,0,0,1,0,0,1,1,1,1,0,0,0,0,1,0,0,0,0,0,1,1,0,0,0,0,0,0],
@@ -130,14 +130,10 @@ axs[0].imshow(~vstup, cmap='gray')
 axs[0].set_title('Original')
 
 axs[1].imshow(~bary, cmap='gray')
-axs[1].set_title('Spectral Ordering')
+axs[1].set_title('Spectral Jaccard')
 
 axs[2].imshow(~banded, cmap='gray')
 axs[2].set_title('Banded - BFP')
 
-# axs[1].imshow(~A, cmap='gray')
-# axs[1].set_title('A')
-
-
 plt.show()
-np.savetxt("data/barycenter-zoo.csv", bary, delimiter=",")
+# np.savetxt("data/barycenter-zoo.csv", bary, delimiter=",")
