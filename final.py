@@ -9,6 +9,7 @@ from matrix_product import matrix_product
 from bidirectional_fixed_permutation import bfp
 from alternating import alternating
 from spectral_ordering import spectral_ordering
+from simple_sort import simple_sort
 
 
 # M = np.loadtxt("data/mushroom.csv",
@@ -119,6 +120,7 @@ M = np.matrix([[1,0,0,1,0,0,1,1,1,1,0,0,0,0,1,0,0,0,0,0,1,1,0,0,0,0,0,0],
 
 vstup = copy.deepcopy(M)
 bary = spectral_ordering(M)
+# banded = simple_sort(bary)
 banded = bfp(bary)
 # A, B, factors = GreConD(banded)
 #product = matrix_product(A, B)
@@ -130,10 +132,10 @@ axs[0].imshow(~vstup, cmap='gray')
 axs[0].set_title('Original')
 
 axs[1].imshow(~bary, cmap='gray')
-axs[1].set_title('Spectral Jaccard')
+axs[1].set_title('spectral ordering - Jaccard')
 
 axs[2].imshow(~banded, cmap='gray')
 axs[2].set_title('Banded - BFP')
 
 plt.show()
-# np.savetxt("data/barycenter-zoo.csv", bary, delimiter=",")
+# np.savetxt("data/spectral-jaccard-zoo.csv", bary, delimiter=",")

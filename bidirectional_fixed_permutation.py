@@ -15,6 +15,6 @@ def bfp(M: np.matrix):
         tosort[i,0] = x[0]
         tosort[i,1] = x[1]       
 
-    perm = np.lexsort((tosort[:,0], tosort[:,1]))
+    perm = np.lexsort(np.fliplr(tosort).T)
     A = M[perm]
     return A
