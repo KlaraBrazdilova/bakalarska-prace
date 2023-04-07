@@ -118,26 +118,26 @@ M = np.matrix([[1,0,0,1,0,0,1,1,1,1,0,0,0,0,1,0,0,0,0,0,1,1,0,0,0,0,0,0],
 )#zoo dataset
 
 vstup = copy.deepcopy(M)
-spectral = spectral_ordering(M)
-banded = bfp(spectral)
+bary = spectral_ordering(M)
+banded = bfp(bary)
 # A, B, factors = GreConD(banded)
 #product = matrix_product(A, B)
 #sim = matrix_similarity(product, banded)
 # print(factors)
 
 fig, axs = plt.subplots(1, 3, figsize=(10, 5))
-axs[0].imshow(~spectral, cmap='gray')
-axs[0].set_title('Spectral ordering - Jaccard s coefficient')
+axs[0].imshow(~vstup, cmap='gray')
+axs[0].set_title('Original')
 
-axs[1].imshow(~banded, cmap='gray')
-axs[1].set_title('Banded')
+axs[1].imshow(~bary, cmap='gray')
+axs[1].set_title('Spectral Ordering')
 
-axs[2].imshow(~vstup, cmap='gray')
-axs[2].set_title('Original')
+axs[2].imshow(~banded, cmap='gray')
+axs[2].set_title('Banded - BFP')
 
 # axs[1].imshow(~A, cmap='gray')
 # axs[1].set_title('A')
 
 
 plt.show()
-np.savetxt("data/spectral-jaccards-zoo.csv", banded, delimiter=",")
+np.savetxt("data/barycenter-zoo.csv", bary, delimiter=",")
