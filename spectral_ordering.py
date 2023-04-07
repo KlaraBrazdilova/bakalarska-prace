@@ -14,15 +14,15 @@ def spectral_ordering(M: np.matrix) -> np.matrix:
     for i in range(n):
         for j in range(i, n):
             # Pearson's coeficient
-            # pom = np.correlate(Q[:, i], Q[:, j])
-            # S[i,j] = (1 + pom)/2 
-            # S[j,i] = (1 + pom)/2 
+            pom = np.correlate(Q[:, i], Q[:, j])
+            S[i,j] = (1 + pom)/2 
+            S[j,i] = (1 + pom)/2 
             
-            # Jaccard's coeficient
-            union = np.union1d(Q[:,i], Q[:,j])
-            intersection = np.intersect1d(Q[:,i], Q[:,j])
-            S[i,j] = intersection.size / union.size
-            S[j,i] = intersection.size / union.size
+            # # Jaccard's coeficient
+            # union = np.union1d(Q[:,i], Q[:,j])
+            # intersection = np.intersect1d(Q[:,i], Q[:,j])
+            # S[i,j] = intersection.size / union.size
+            # S[j,i] = intersection.size / union.size
 
     #Laplacian matrix
     L = np.diag(np.diag(S)) - S
@@ -31,12 +31,29 @@ def spectral_ordering(M: np.matrix) -> np.matrix:
     V, D = np.linalg.eig(L) #eig just for square arrray, eigvals for general matrix
 
     #eigenvector
+
+    #prepis z matlabu 
+    # perm = np.sort(np.diag(D), kind='stable') #proc je tu diag?
+    # column = V[perm[1]]
+    # perm = np.sort(column, kind='stable')[::-1][n]
+    # A = M[:, perm]
+
     a = np.argsort(V, kind='stable')
-    b = a[1]
-    perm = np.argsort(D[b], kind='stable')
+    perm = np.argsort(D[a[1]], kind='stable')
     column = V[perm]
-    perm2 = np.argsort(column, kind='stable')[::-1][:n]
-    A = M[:, perm2]
+    perm = np.argsort(column, kind='stable')[::-1][:n] #reverse order
+    A = M[:, perm]
+
+    # a = np.argsort(V, kind='stable')
+    # print(a)
+    # b = a[1]
+    # perm = np.argsort(D[b], kind='stable')
+    # print(perm)
+    # column = V[perm]
+    # perm2 = np.argsort(column, kind='stable')
+    # print(perm2)
+    # print(perm2[::-1][:n])
+    # A = M[:, perm2]
 
     return A
 
@@ -142,15 +159,18 @@ M = np.matrix([[1,0,0,1,0,0,1,1,1,1,0,0,0,0,1,0,0,0,0,0,1,1,0,0,0,0,0,0],
 [0,0,1,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
 [0,1,1,0,1,0,0,0,1,1,0,0,0,1,0,0,0,0,1,0,0,0,1,0,0,0,0,0]]
 )#zoo dataset
-
+vstup = copy.deepcopy(M)
 spectral = spectral_ordering(M)
 banded = bfp(spectral)
 
-fig, axs = plt.subplots(1, 2, figsize=(10, 5))
+fig, axs = plt.subplots(1, 3, figsize=(10, 5))
 axs[0].imshow(~spectral, cmap='gray')
 axs[0].set_title('Spectral ordering - Jaccard s coefficient')
 
 axs[1].imshow(~banded, cmap='gray')
 axs[1].set_title('Banded')
+
+axs[2].imshow(~vstup, cmap='gray')
+axs[2].set_title('Original')
 
 plt.show()
