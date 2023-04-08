@@ -1,0 +1,4 @@
+GreConD - Alternating - faktory = 32
+GreConD - Barycenter - faktory = 30
+GreConD - Spectral Ordering - Pearsons - faktory = 30
+GreConD - Spectral Ordering - Jaccard - faktory = 30
