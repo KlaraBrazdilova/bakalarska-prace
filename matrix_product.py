@@ -41,10 +41,10 @@ def matrix_product(A: np.matrix, B: np.matrix) -> np.matrix:
 # print(product)
 # print(matrix_similarity(product, I))
 
-def binary_matrix_product(A, B): #chatGPT
-    # ensure A and B are binary matrices
-    if not np.all(np.in1d(A, [0,1])) or not np.all(np.in1d(B, [0,1])):
-        raise ValueError("Input matrices must be binary")
+# def binary_matrix_product(A, B): #chatGPT
+#     # ensure A and B are binary matrices
+#     if not np.all(np.in1d(A, [0,1])) or not np.all(np.in1d(B, [0,1])):
+#         raise ValueError("Input matrices must be binary")
 
-    # compute product using dot product and boolean operators
-    return (A.dot(B) > 0).astype(int)         
+#     # compute product using dot product and boolean operators
+#     return (A.dot(B) > 0).astype(int)         
