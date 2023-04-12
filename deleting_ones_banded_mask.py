@@ -12,22 +12,25 @@ def banded_ones(M: np.matrix, k: int) -> np.matrix:
     for i in range(final.shape[0]):
         for j in range(final.shape[1]):
             if not band[i,j] and final[i,j]:
-                final[i,j] = 2
+                final[i,j] = 0.1
     return band, final
 
-M = np.loadtxt("data/zoo/barycenter.csv",
+M = np.loadtxt("data/zoo/alternating.csv",
                  delimiter=",", dtype=int)
 vstup = copy.deepcopy(M)
-A, C = banded_ones(M, 10)  
+band, deleted = banded_ones(M, 50)  
 
-newcmp = matplotlib.colors.LinearSegmentedColormap.from_list("", ["white", "black", "deepskyblue"])
+newcmp = matplotlib.colors.LinearSegmentedColormap.from_list("", [(0, 'white'), (0.1, 'blue'), (1,'black')])
 
-fig, axs = plt.subplots(1, 2, figsize=(10, 5))
+fig, axs = plt.subplots(1, 3, figsize=(10, 5))
 axs[0].imshow(vstup, cmap=newcmp)
 axs[0].set_title('Original')
 
-axs[1].imshow(C, cmap=newcmp)
-axs[1].set_title('Deleting')
+axs[1].imshow(band, cmap=newcmp)
+axs[1].set_title('Band')
+
+axs[2].imshow(deleted, cmap=newcmp)
+axs[2].set_title('Deleting')
 
 
 plt.show()

@@ -62,15 +62,11 @@ def GreConD(I, no_of_factors=None):
             else:
                 d_old = d
 
-        print('su tu')
-        #A = np.hstack((A, c.toarray()))
-        # print(c[:, np.newaxis])
-        #A = np.hstack((A, c[:, np.newaxis]))
         A = np.concatenate((A, c), axis=1)
         B = np.vstack((B, d[np.newaxis, :]))
 
         k += 1
-        print(k)
+        # print(k)
 
         # end if the no. of factors is reached
         if no_of_factors is not None and k==no_of_factors:
@@ -81,25 +77,13 @@ def GreConD(I, no_of_factors=None):
             for j in range(n):
                 if c[i, 0] and d[j]:
                     U[i, j] = False
-  
-        #U[c, d] = False
+
 
     return A.astype(bool), B.astype(bool), k
 
-
-
-
-# matrix_test = np.matrix([[0, 0, 1, 1, 1, 1], [0, 1, 0, 1, 0, 1], [
-#                       1, 1, 0, 0, 1, 1], [1, 0, 0, 1, 1, 0], [0, 0, 0, 1, 1, 0]])
-# A, B = GreConD(matrix_test)
-# print(A)
-# print(B)
-# print(matrix_product(A, B))
-
-M = np.loadtxt("data/zoo/zoo.csv",
-                 delimiter=",", dtype=int)
-A, B, k = GreConD(M)
-
-print(k)
-prod = matrix_product(A, B)
-print(matrix_similarity(M, prod))
+# M = np.loadtxt("data/mushroom/mushroom.csv",
+#                  delimiter=",", dtype=int)
+# A, B, k = GreConD(M)
+# np.savetxt("data/mushroom/grecond-chat-A.csv", A, delimiter=",")
+# np.savetxt("data/mushroom/grecond-chat-B.csv", B, delimiter=",")
+# np.savetxt("data/mushroom/grecond-chat-k.txt", np.array([k]), fmt="%d")

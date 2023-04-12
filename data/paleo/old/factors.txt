@@ -1,0 +1,4 @@
+spectral ordering - Jaccard's coeficient - GreConD - faktory = 
+spectral ordering - Pearson's coeficient - GreConD - faktory = 
+alternating - GreConD - faktory = 156 
+barycenter - GreConD - faktory = 

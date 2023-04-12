@@ -28,14 +28,15 @@ def banded_matrix(n: int, m: int) -> np.matrix:
     return np.matrix(B)
 
 def banded_distance(M: np.matrix, k: int) -> np.matrix:
-    band = banded_matrix(M.shape[0], M.shape[1])
-    size = k
+    m,n = M.shape
+    band = banded_matrix(m, n)
+    size = int(np.round(n * (100-k) / 100))
     change = False
-    for i in range(M.shape[0]): #radek
-        for j in range(M.shape[1]): #sloupec
-            if j + 1 != M.shape[1] and band[i, j] and not band[i, j + 1]:
-                if j + size + 1 > M.shape[1]:
-                    end = M.shape[1]
+    for i in range(m): #radek
+        for j in range(n): #sloupec
+            if j + 1 != n and band[i, j] and not band[i, j + 1]:
+                if j + size + 1 > n:
+                    end = n
                 else:
                     end = j + size + 1    
                 for k in range(j, end):

@@ -8,3 +8,11 @@ def matrix_similarity(A: np.matrix, B: np.matrix) -> np.matrix:
     similarity = 1 - sum1/sum2
 
     return similarity
+
+
+M = np.loadtxt("data/zoo/alternating.csv",
+                 delimiter=",", dtype=int)
+A = np.loadtxt("data/zoo/alternating-bfp.csv",
+                 delimiter=",", dtype=int)
+
+print(matrix_similarity(M, A))
