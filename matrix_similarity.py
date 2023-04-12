@@ -3,16 +3,8 @@ import numpy as np
 def matrix_similarity(A: np.matrix, B: np.matrix) -> np.matrix:
     """Compute coverage quality of matrix A and matrix B."""
     
-    sum1 = np.sum(np.abs(A-B)) 
+    sum1 = np.sum(np.abs(np.bitwise_xor(A,B))) 
     sum2 = np.sum(np.abs(A))
-    similarity = sum1/sum2
+    similarity = 1 - sum1/sum2
 
     return similarity
-
-# A = np.loadtxt("data/paleo/grecond-alternating-chat-A.csv",
-#                  delimiter=",", dtype=int)
-
-# B = np.loadtxt("data/paleo/grecond-alternating-A.csv",
-#                  delimiter=",", dtype=int)
-
-# print(matrix_similarity(A, B))

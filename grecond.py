@@ -64,9 +64,9 @@ def GreConD(I: matrix):
     A = zeros((height,0))
     B = zeros((0,width))
     best = my_struct()
-    a = 0
+    factors = 0
     tran_i = copy.deepcopy(I).transpose()
-    #print(I)
+    
     while U.any():
         # indexy neprazdnych sloupcu
         indexes = [i for i, column in enumerate(tran_i) if column.any()] 
@@ -103,12 +103,12 @@ def GreConD(I: matrix):
         B = np.append(B, new_row, axis=0) #exis=0 pro přidání řádku
         #print(f"po: {I}")
         # print(f"iterace {a} vypadá \n {U}")
-        a += 1
+        factors += 1
         best = my_struct([], [], [], 0)
         
 
     # print(f"{A} \n {B}")    
-    return A, B, a
+    return A, B, factors
 
 
 # matrix_test = matrix([[0, 0, 1, 1, 1, 1], [0, 1, 0, 1, 0, 1], [

@@ -1,8 +1,9 @@
 import copy
+import matplotlib
 import numpy as np
 import matplotlib.pyplot as plt
 
-from grecond import GreConD
+from grecond_chatgpt import GreConD
 from barycenter import barycenter
 from matrix_similarity import matrix_similarity
 from matrix_product import matrix_product
@@ -12,32 +13,35 @@ from spectral_ordering import spectral_ordering
 from simple_sort import simple_sort
 
 
-M = np.loadtxt("data/zoo.csv",
+M = np.loadtxt("data/zoo/zoo.csv",
                  delimiter=",", dtype=int)
-# vstup = copy.deepcopy(M)
 
 
 vstup = copy.deepcopy(M)
-bary = spectral_ordering(M)
+bary = barycenter(M)
 banded = bfp(bary)
-
-# vstup = copy.deepcopy(M)
-# bary = spectral_ordering(M)
-# banded = bfp(bary)
-# A, B, factors = GreConD(banded)
+print("done")
+A, B, factors = GreConD(banded)
 #product = matrix_product(A, B)
 #sim = matrix_similarity(product, banded)
 # print(factors)
 
-fig, axs = plt.subplots(1, 3, figsize=(10, 5))
-axs[0].imshow(~vstup, cmap='gray')
-axs[0].set_title('Original')
+# newcmp = matplotlib.colors.LinearSegmentedColormap.from_list("", ["white", "black"])
+# fig, axs = plt.subplots(1, 4, figsize=(15, 10))
+# axs[0].imshow(vstup, cmap=newcmp)
+# axs[0].set_title('Original')
 
-axs[1].imshow(~bary, cmap='gray')
-axs[1].set_title('Spectral Pearson')
+# axs[1].imshow(banded, cmap=newcmp)
+# axs[1].set_title('Alternating - BFP')
 
-axs[2].imshow(~banded, cmap='gray')
-axs[2].set_title('Banded - BFP')
+# axs[2].imshow(A, cmap=newcmp)
+# axs[2].set_title('GreConD - A')
 
-plt.show()
-# np.savetxt("data/spectral-jaccard-zoo.csv", bary, delimiter=",")
+# axs[3].imshow(B, cmap=newcmp)
+# axs[3].set_title('GreConD - B')
+
+# plt.show()
+np.savetxt("data/zoo/barycenter-chat.csv", banded, delimiter=",")
+np.savetxt("data/zoo/grecond-barycenter-chat-A.csv", A, delimiter=",")
+np.savetxt("data/zoo/grecond-barycenter-chat-B.csv", B, delimiter=",")
+print(factors)
