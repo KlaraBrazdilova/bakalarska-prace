@@ -17,7 +17,7 @@ def banded_ones(M: np.matrix, k: int) -> np.matrix:
 M = np.loadtxt("data/zoo/alternating.csv",
                  delimiter=",", dtype=int)
 vstup = copy.deepcopy(M)
-band, deleted = banded_ones(M, 70)  
+band, deleted = banded_ones(M, 90)  
 print(deleted)
 
 newcmp = matplotlib.colors.LinearSegmentedColormap.from_list("", ['white','black', 'blue'])
@@ -40,4 +40,4 @@ for i in range(deleted.shape[0]):
         if deleted[i,j] == 2:
             deleted[i,j] = 0
 
-np.savetxt("data/zoo/alternating-deleted-band-70.csv", deleted, delimiter=",")         
+np.savetxt("data/zoo/alternating-deleted-band-90.csv", deleted, delimiter=",")         

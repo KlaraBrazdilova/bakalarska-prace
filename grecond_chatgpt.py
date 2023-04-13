@@ -66,7 +66,7 @@ def GreConD(I, no_of_factors=None):
         B = np.vstack((B, d[np.newaxis, :]))
 
         k += 1
-        # print(k)
+        print(k)
 
         # end if the no. of factors is reached
         if no_of_factors is not None and k==no_of_factors:
@@ -81,9 +81,18 @@ def GreConD(I, no_of_factors=None):
 
     return A.astype(bool), B.astype(bool), k
 
-# M = np.loadtxt("data/mushroom/mushroom.csv",
+# M = np.loadtxt("data/zoo/alternating-deleted-band-90.csv",
 #                  delimiter=",", dtype=int)
 # A, B, k = GreConD(M)
-# np.savetxt("data/mushroom/grecond-chat-A.csv", A, delimiter=",")
-# np.savetxt("data/mushroom/grecond-chat-B.csv", B, delimiter=",")
-# np.savetxt("data/mushroom/grecond-chat-k.txt", np.array([k]), fmt="%d")
+# np.savetxt("data/zoo/grecond-chat-A-alternating-deleted-band-90.csv", A, delimiter=",")
+# np.savetxt("data/zoo/grecond-chat-B-alternating-deleted-band-90.csv", B, delimiter=",")
+# np.savetxt("data/zoo/grecond-chat-k-alternating-deleted-band-90.txt", np.array([k]), fmt="%d")
+
+# M = np.loadtxt("data/zoo/alternating-deleted-band-90.csv",
+#                  delimiter=",", dtype=int)
+# A = np.loadtxt("data/zoo/grecond-chat-A-alternating-deleted-band-90.csv", delimiter=",", dtype=int)
+# B = np.loadtxt("data/zoo/grecond-chat-B-alternating-deleted-band-90.csv", delimiter=",", dtype=int)
+# puvodni = np.loadtxt("data/zoo/zoo.csv", delimiter=",", dtype=int)
+# i = matrix_product(A, B)
+# print(matrix_similarity(M, i))
+# print(matrix_similarity(puvodni, i))
