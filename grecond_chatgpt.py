@@ -81,13 +81,19 @@ def GreConD(I, no_of_factors=None):
 
     return A.astype(bool), B.astype(bool), k
 
-M = np.loadtxt("data/paleo/alternating-deleted-band-90.csv",
-                 delimiter=",", dtype=int)
-A, B, k = GreConD(M)
-print(k)
-np.savetxt("data/paleo/grecond-chat-A-alternating-deleted-band-90.csv", A, delimiter=",")
-np.savetxt("data/paleo/grecond-chat-B-alternating-deleted-band-90.csv", B, delimiter=",")
-np.savetxt("data/paleo/grecond-chat-k-alternating-deleted-band-90.txt", np.array([k]), fmt="%d")
+for i in [30, 50, 70, 90]:
+    for j in ["spectral_ordering_pearson-bfp", "barycenter-bfp", "alternating"]:
+        for k in ["mushroom", "healthcare"]:
+            slozka = k
+            typ = j
+            cislo = i
+            M = np.loadtxt("data/"+slozka+"/"+typ+"-deleted-band-"+ str(cislo) +".csv",
+                            delimiter=",", dtype=int)
+            A, B, k = GreConD(M)
+            print(k)
+            np.savetxt("data/"+slozka+"/grecond-chat-A-"+typ+"-deleted-band-"+ str(cislo) +".csv", A, delimiter=",")
+            np.savetxt("data/"+slozka+"/grecond-chat-B-"+typ+"-deleted-band-"+ str(cislo) +".csv", B, delimiter=",")
+            np.savetxt("data/"+slozka+"/grecond-chat-k-"+typ+"-deleted-band-"+ str(cislo) +".txt", np.array([k]), fmt="%d")
 
 # M = np.loadtxt("data/zoo/alternating-deleted-band-90.csv",
 #                  delimiter=",", dtype=int)
