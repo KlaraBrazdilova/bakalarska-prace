@@ -5,7 +5,7 @@ def matrix_similarity(A: np.matrix, B: np.matrix) -> np.matrix:
     
     sum1 = np.sum(np.abs(np.bitwise_xor(A,B))) 
     sum2 = np.sum(np.abs(A))
-    print(sum1/sum2)
+    # print(sum1/sum2)
     similarity = 1 - sum1/sum2
 
     return similarity
