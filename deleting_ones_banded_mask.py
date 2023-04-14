@@ -15,8 +15,8 @@ def banded_ones(M: np.matrix, k: int) -> np.matrix:
     return band, final
 
 for i in [30, 50, 70, 90]:
-    slozka = "mushroom"
-    typ = "spectral_ordering_pearson-bfp"#"barycenter-bfp"#"alternating"
+    slozka = "paleo"
+    typ = "alternating"#"spectra-ordering-pearson-bfp"#"barycenter-bfp"#"alternating"
     cislo = i
     M = np.loadtxt("data/"+slozka+"/"+typ+".csv",
                     delimiter=",", dtype=int)
