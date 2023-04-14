@@ -81,12 +81,13 @@ def GreConD(I, no_of_factors=None):
 
     return A.astype(bool), B.astype(bool), k
 
-# M = np.loadtxt("data/zoo/alternating-deleted-band-90.csv",
-#                  delimiter=",", dtype=int)
-# A, B, k = GreConD(M)
-# np.savetxt("data/zoo/grecond-chat-A-alternating-deleted-band-90.csv", A, delimiter=",")
-# np.savetxt("data/zoo/grecond-chat-B-alternating-deleted-band-90.csv", B, delimiter=",")
-# np.savetxt("data/zoo/grecond-chat-k-alternating-deleted-band-90.txt", np.array([k]), fmt="%d")
+M = np.loadtxt("data/paleo/alternating-deleted-band-90.csv",
+                 delimiter=",", dtype=int)
+A, B, k = GreConD(M)
+print(k)
+np.savetxt("data/paleo/grecond-chat-A-alternating-deleted-band-90.csv", A, delimiter=",")
+np.savetxt("data/paleo/grecond-chat-B-alternating-deleted-band-90.csv", B, delimiter=",")
+np.savetxt("data/paleo/grecond-chat-k-alternating-deleted-band-90.txt", np.array([k]), fmt="%d")
 
 # M = np.loadtxt("data/zoo/alternating-deleted-band-90.csv",
 #                  delimiter=",", dtype=int)

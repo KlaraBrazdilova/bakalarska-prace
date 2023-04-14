@@ -16,7 +16,7 @@ fig, axs = plt.subplots(1, 1, figsize=(16, 9), dpi=100)
 # plt.subplot(2,1,2)
 # plt.hist(vstup,bins=300)
 # plt.xlim(0,100)
-axs.imshow(vstup, cmap=newcmp_black_white, aspect='auto', interpolation='bicubic')
+axs.imshow(vstup, cmap=newcmp_black_white, aspect='auto', interpolation='nearest')
 axs.set_title('Original')
 
 # axs[1].imshow(deleted, cmap=newcmp)
