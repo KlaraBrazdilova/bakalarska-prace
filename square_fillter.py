@@ -1,11 +1,14 @@
+from math import floor
 import numpy as np
 from matplotlib import pyplot as plt
 import matplotlib
 
 def square_count(M, size, i, j):
+    """Count number of 1s in square of size size around (i,j)."""
     count = 0
-    for k in range(size):
-        for l in range(size):
+    max = floor(size/2)
+    for k in range(max+1):
+        for l in range(max+1):
             try:
                 if M[i + k, j + l]:
                     count += 1
@@ -13,9 +16,8 @@ def square_count(M, size, i, j):
                     count += 1 
             except IndexError:
                 pass    
-    print(count/(size+1))            
+    count -= M[i, j]                            
     return count/(size+1)
-
 
 
 def square_filter(size, M, limit):
@@ -28,14 +30,15 @@ def square_filter(size, M, limit):
                 M[i, j] = 1
     return M
 
-M = np.loadtxt('data/zoo/barycenter-bfp.csv', delimiter=',', dtype=int)
+
+M = np.loadtxt('data/paleo/barycenter-bfp.csv', delimiter=',', dtype=int)
 vstup = M.copy()
-M = square_filter(2, M, 0.9)
+M = square_filter(3, M, 0.7)
 newcmp = matplotlib.colors.LinearSegmentedColormap.from_list("", ['white','black', 'blue'])
 newcmp_black_white = matplotlib.colors.LinearSegmentedColormap.from_list("", ['white','black'])
 fig, axs = plt.subplots(1, 2, figsize=(10, 5))
 axs[0].imshow(vstup, cmap=newcmp_black_white)
 axs[0].set_title('Original')
 axs[1].imshow(M, cmap=newcmp_black_white)
-axs[1].set_title('filter 2, 0.2')
+axs[1].set_title('filter, 3, 1')
 plt.show()
