@@ -38,26 +38,26 @@ def cross_count(M, size, i, j):
     # print(count)
     # print(M.shape)
     # print((size*M.shape[0] + size*M.shape[1]))
-    # print(count/(size*M.shape[0]))
-    return count/(M.shape[0] + size*M.shape[1])
+    # print(count/(size*M.shape[0] + size*M.shape[1] - size*size))
+    return count/(size*M.shape[0] + size*M.shape[1]- size*size)
 
 def cross_filter(size, M, limit):
     """Filter matrix with square filter of size size."""
     for i in range(M.shape[0]):
         for j in range(M.shape[1]):
-            if cross_count(M, size, i, j) < limit:
-                # print("Su tu")
-                if M[i,j]:
-                    M[i, j] = 0
-            else:
+            if cross_count(M, size, i, j) > limit:
+                # print("Su tu")                
                 if not M[i,j]:
-                    M[i, j] = 1
+                    M[i, j] = 1 #2
+            else:
+                if M[i,j]:
+                    M[i, j] = 0 #3     
     return M
 
 
-M = np.loadtxt('data/zoo/spectra-ordering-pearson-bfp.csv', delimiter=',', dtype=int)
+M = np.loadtxt('data/paleo/spectra-ordering-pearson-bfp.csv', delimiter=',', dtype=int)
 vstup = M.copy()
-filter = cross_filter(3, M, 0.9)
+filter = cross_filter(3, M, 0.3)
 # print(M)
 newcmp = matplotlib.colors.LinearSegmentedColormap.from_list("", ['white','black', 'blue', 'green'])
 newcmp_black_white = matplotlib.colors.LinearSegmentedColormap.from_list("", ['white','black'])
