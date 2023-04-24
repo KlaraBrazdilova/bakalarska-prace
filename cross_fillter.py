@@ -57,7 +57,7 @@ def cross_filter(size, M, limit):
 
 M = np.loadtxt('data/paleo/spectra-ordering-pearson-bfp.csv', delimiter=',', dtype=int)
 vstup = M.copy()
-filter = cross_filter(3, M, 0.3)
+filter = cross_filter(3, M, 0.09)
 # print(M)
 newcmp = matplotlib.colors.LinearSegmentedColormap.from_list("", ['white','black', 'blue', 'green'])
 newcmp_black_white = matplotlib.colors.LinearSegmentedColormap.from_list("", ['white','black'])
