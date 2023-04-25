@@ -5,6 +5,7 @@ import math
 
 
 def diletation(matrix, mask):
+    matrix_copy = matrix.copy()
     m, n = matrix.shape
     mask_m, mask_n = mask.shape
     size = math.floor(mask_m/2)
@@ -15,11 +16,11 @@ def diletation(matrix, mask):
                 for l in range(mask_n):
                     try:
                         if mask[k, l] and matrix[i-size+k, j-size+l]:
-                            matrix[i, j] = 1
+                            matrix_copy[i, j] = 1
                             break
                     except IndexError:
                         pass
-    return matrix                    
+    return matrix_copy                    
 
 M = np.loadtxt('data/paleo/spectra-ordering-pearson-bfp.csv', delimiter=',', dtype=int)
 vstup = M.copy()
@@ -34,3 +35,5 @@ axs[0].set_title('Original')
 axs[1].imshow(filter, cmap=newcmp_black_white)
 axs[1].set_title('diletation')
 plt.show()
+np.savetxt("data/paleo/spectra-ordering-pearson-bfp-diletation.csv", filter,
+                 delimiter=",")
