@@ -7,11 +7,11 @@ from grecond_chatgpt import GreConD
 from diletation import diletation
 from erosion import erosion
 
-M = np.loadtxt('data/healthcare/alternating.csv', delimiter=',', dtype=int)
-vstup = copy.deepcopy(M)
-mask = np.array([[1, 0, 0], [0, 1, 0], [0, 0, 1]])
-dilet = diletation(M, mask)
-eros = erosion(dilet, mask)
+# M = np.loadtxt('data/healthcare/alternating.csv', delimiter=',', dtype=int)
+# vstup = copy.deepcopy(M)
+# mask = np.array([[1, 0, 0], [0, 1, 0], [0, 0, 1]])
+# dilet = diletation(M, mask)
+# eros = erosion(dilet, mask)
 
 
 slozky = ["paleo","zoo", "mushroom", "healthcare"]
@@ -23,17 +23,17 @@ for slozka in slozky:
         # M = np.loadtxt("data/"+slozka+"/"+typ+".csv",
         #                 delimiter=",", dtype=int)
         # vstup = copy.deepcopy(M)
-        # dilet = diletation(M, mask)
-        # eros = erosion(dilet, mask)
+        # eros = erosion(M, mask)
+        # dilet = diletation(eros, mask)
         # print(slozka, typ)
-        # np.savetxt("data/"+slozka+"/diletation-erosion/"+typ+"/"+typ+"-unit-matrix-3x3.csv", eros, delimiter=",") 
-        M = np.loadtxt("data/"+slozka+"/diletation-erosion/"+typ+"/"+typ+"-unit-matrix-3x3.csv",
+        # np.savetxt("data/"+slozka+"/erosion-diletation/"+typ+"/"+typ+"-unit-matrix-3x3.csv", eros, delimiter=",") 
+        M = np.loadtxt("data/"+slozka+"/erosion-diletation/"+typ+"/"+typ+"-unit-matrix-3x3.csv",
                         delimiter=",", dtype=int)
         A, B, k = GreConD(M)
         print(slozka, typ)
-        np.savetxt("data/"+slozka+"/diletation-erosion/"+typ+"/"+typ+"-unit-matrix-3x3-grecond-A.csv", A, delimiter=",") 
-        np.savetxt("data/"+slozka+"/diletation-erosion/"+typ+"/"+typ+"-unit-matrix-3x3-grecond-B.csv", B, delimiter=",") 
-        np.savetxt("data/"+slozka+"/diletation-erosion/"+typ+"/"+typ+"-unit-matrix-3x3-grecond-k.txt", np.array([k]), fmt="%d") 
+        np.savetxt("data/"+slozka+"/erosion-diletation/"+typ+"/"+typ+"-unit-matrix-3x3-grecond-A.csv", A, delimiter=",") 
+        np.savetxt("data/"+slozka+"/erosion-diletation/"+typ+"/"+typ+"-unit-matrix-3x3-grecond-B.csv", B, delimiter=",") 
+        np.savetxt("data/"+slozka+"/erosion-diletation/"+typ+"/"+typ+"-unit-matrix-3x3-grecond-k.txt", np.array([k]), fmt="%d") 
 
 # newcmp = matplotlib.colors.LinearSegmentedColormap.from_list("", ['white','black', 'blue', 'green'])
 # newcmp_black_white = matplotlib.colors.LinearSegmentedColormap.from_list("", ['white','black'])
