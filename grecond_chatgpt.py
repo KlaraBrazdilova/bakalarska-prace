@@ -66,7 +66,7 @@ def GreConD(I, no_of_factors=None):
         B = np.vstack((B, d[np.newaxis, :]))
 
         k += 1
-        print(k)
+        # print(k)
 
         # end if the no. of factors is reached
         if no_of_factors is not None and k==no_of_factors:
@@ -81,8 +81,8 @@ def GreConD(I, no_of_factors=None):
 
     return A.astype(bool), B.astype(bool), k
 
-A,B,k = GreConD(np.loadtxt("data/mushroom/spectral_ordering_pearson-bfp.csv", delimiter=",", dtype=int))
-print(k)
+# A,B,k = GreConD(np.loadtxt("data/mushroom/spectral_ordering_pearson-bfp.csv", delimiter=",", dtype=int))
+# print(k)
 
 # for i in [30, 50, 70, 90]:
 #     for j in ["spectra-ordering-pearson-bfp", "barycenter-bfp", "alternating"]:
