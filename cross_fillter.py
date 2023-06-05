@@ -43,19 +43,20 @@ def cross_count(M, size, i, j):
 
 def cross_filter(size, M, limit):
     """Filter matrix with square filter of size size."""
+    N = M.copy()
     for i in range(M.shape[0]):
         for j in range(M.shape[1]):
             if cross_count(M, size, i, j) > limit:
                 # print("Su tu")                
                 if not M[i,j]:
-                    M[i, j] = 1 #2
+                    N[i, j] = 1 #2
             else:
                 if M[i,j]:
-                    M[i, j] = 0 #3     
-    return M
+                    N[i, j] = 0 #3     
+    return N
 
 
-M = np.loadtxt('data/paleo/spectra-ordering-pearson-bfp.csv', delimiter=',', dtype=int)
+M = np.loadtxt('data/paleo/barycenter-bfp.csv', delimiter=',', dtype=int)
 vstup = M.copy()
 filter = cross_filter(3, M, 0.09)
 # print(M)
@@ -65,5 +66,5 @@ fig, axs = plt.subplots(1, 2, figsize=(10, 5))
 axs[0].imshow(vstup, cmap=newcmp_black_white)
 axs[0].set_title('Original')
 axs[1].imshow(filter, cmap=newcmp_black_white)
-axs[1].set_title('filter, 3, 0.7')
+axs[1].set_title('filter, 3, 0.5')
 plt.show()

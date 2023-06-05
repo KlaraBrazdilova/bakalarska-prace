@@ -22,18 +22,19 @@ def square_count(M, size, i, j):
 
 def square_filter(size, M, limit):
     """Filter matrix with square filter of size size."""
+    N = M.copy()
     for i in range(M.shape[0]):
         for j in range(M.shape[1]):
             if square_count(M, size, i, j) > limit:
-                M[i, j] = 1
+                N[i, j] = 1
             else:
-                M[i, j] = 0
-    return M
+                N[i, j] = 0
+    return N
 
 
 M = np.loadtxt('data/paleo/barycenter-bfp.csv', delimiter=',', dtype=int)
 vstup = M.copy()
-M = square_filter(3, M, 0.8)
+M = square_filter(3, M, 0.5)
 newcmp = matplotlib.colors.LinearSegmentedColormap.from_list("", ['white','black', 'blue'])
 newcmp_black_white = matplotlib.colors.LinearSegmentedColormap.from_list("", ['white','black'])
 fig, axs = plt.subplots(1, 2, figsize=(10, 5))
