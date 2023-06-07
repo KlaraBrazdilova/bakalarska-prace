@@ -1,29 +1,11 @@
-# import numpy as np
-
-
-# def asso(M, k, tau, w_p, w_m):
-#     m,n = M.shape
-#     A = np.log([])
-#     B = np.log([])
-#     neg_M = -M
-
-#     association_matrix = np.zeros((n,n))
-#     for i in range(n):
-#         for j in range(n):
-#             if np.sum(np.multiply(M[:,i], M[:,j])) / np.sum(M[:,i]) > tau:
-#                 association_matrix[i,j] = 1
-
-#     for factor in range(k):
-#         cardinate_final_cover = np.zeros((1,m)) 
-#         final_collumn = np.cell(1,n)
-
 import numpy as np
+import numpy.matlib
 
 def asso2(M, k, tau, w_p, w_m):
     # init
     m, n = M.shape
-    A = np.array([], dtype=bool)
-    B = np.array([], dtype=bool)
+    A = np.zeros((m, n), dtype=bool)
+    B = np.zeros((n, m), dtype=bool)
     negM = ~M
 
     # association matrix
@@ -41,7 +23,13 @@ def asso2(M, k, tau, w_p, w_m):
         print(factor)
 
         # product = np.hstack((A, np.zeros((m, 1), dtype=bool))) @ np.vstack((B, np.zeros((1, n), dtype=bool)))
-        product = np.logical_and(np.hstack((A, np.zeros((m, 1), dtype=bool))), np.vstack((B, np.zeros((1, n), dtype=bool))))
+        # product = np.logical_and(np.hstack((A, np.zeros((m, 1), dtype=bool))), np.vstack((B, np.zeros((1, n), dtype=bool))))
+        # product = np.logical_and(np.hstack((A, np.zeros((m, 1), dtype=bool))), np.vstack((B, np.zeros((1, n), dtype=bool))))
+        pom1 = np.hstack((A, np.zeros((m, 1), dtype=bool)))
+        pom2 = np.vstack((B, np.zeros((1, n), dtype=bool)))
+        product = np.dot(pom1, pom2)
+        product = product.astype(bool)
+
         cover_base = w_p * np.sum(np.sum(M[product])) - w_m * np.sum(np.sum(negM[product]))
 
         # loop over all candidate (rows in association matrix)
@@ -50,15 +38,18 @@ def asso2(M, k, tau, w_p, w_m):
             candidate_row = association_matrix[j, :]
 
             # vectorized loop over all rows
-            changed = np.logical_and(~product, np.tile(candidate_row, (m, 1)))  # check only changed values
+            changed = np.logical_and(~product, numpy.matlib.repmat(candidate_row, m, 1))  # check only changed values
             
             covered_by_change = np.logical_and(M, changed)
             overcovered_by_change = np.logical_and(negM, changed)
             cover_aktualni = cover_base + w_p * np.sum(covered_by_change, axis=1) - w_m * np.sum(overcovered_by_change, axis=1)
 
             final_column[j][cover_base < cover_aktualni] = 1
-
-            product_final = np.logical_and(np.hstack((A, final_column[j])), np.vstack((B, candidate_row)))
+            print(A)
+            print(final_column[j])
+            neco1 = np.hstack((A, final_column[j]))
+            neco2 = np.vstack((B, candidate_row))
+            product_final = np.logical_and(neco1, neco2)
             candidate_final_cover[j] = w_p * np.sum(np.sum(M[product_final])) - w_m * np.sum(np.sum(negM[product_final]))
 
         # find the best candidate and add them to A and B
@@ -67,3 +58,8 @@ def asso2(M, k, tau, w_p, w_m):
         B = np.vstack((B, association_matrix[index, :]))
 
     return A, B
+
+M = np.array([[0,0,1,0],[1,1,1,1],[0,1,1,1],[0,1,1,0]])
+A, B = asso2(M, 3, 0.9, 1, 1)
+print(A)
+print(B)
