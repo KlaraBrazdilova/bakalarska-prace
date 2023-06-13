@@ -21,21 +21,21 @@ mask = np.array([[0, 1, 0], [0, 1, 0]])
 # amount = [0.2, 0.3, 0.35, 0.4, 0.5]
 for slozka in slozky:
     for typ in typy:
-        # M = np.loadtxt("data/"+slozka+"/"+typ+".csv",
+        # M = np.loadtxt("data/"+slozka+"/erosion-diletation/"+typ+"/"+typ+"-col-matrix-3x2.csv",
         #                 delimiter=",", dtype=int)
         # vstup = copy.deepcopy(M)
-        # eros = erosion(M, mask)
-        # dilet = diletation(eros, mask)
+        # dilet = diletation(M, mask)
+        # eros = erosion(dilet, mask)
         # print(slozka, typ)
-        # np.savetxt("data/"+slozka+"/erosion-diletation/"+typ+"/"+typ+"-col-matrix-3x2.csv", dilet, delimiter=",")
-        M = np.loadtxt("data/"+slozka+"/erosion-diletation/"+typ+"/"+typ+"-col-matrix-3x2.csv",
+        # np.savetxt("data/"+slozka+"/diletation-erosion/"+typ+"/"+typ+"erosion-diletation-diletation-erosion-col-matrix-3x2.csv", eros, delimiter=",")
+        M = np.loadtxt("data/"+slozka+"/diletation-erosion/"+typ+"/"+typ+"erosion-diletation-diletation-erosion-col-matrix-3x2.csv",
                         delimiter=",", dtype=int)
         A, B, k = GreConD(M)
 
         print(slozka, typ)
-        np.savetxt("data/"+slozka+"/erosion-diletation/"+typ+"/"+typ+"-col-matrix-3x2-grecond-A.csv", A, delimiter=",")
-        np.savetxt("data/"+slozka+"/erosion-diletation/"+typ+"/"+typ+"-col-matrix-3x2-grecond-B.csv", B, delimiter=",")
-        np.savetxt("data/"+slozka+"/erosion-diletation/"+typ+"/"+typ+"-col-matrix-3x2-grecond-k.txt", np.array([k]), fmt="%d")
+        np.savetxt("data/"+slozka+"/diletation-erosion/"+typ+"/"+typ+"erosion-diletation-diletation-erosion-col-matrix-3x2-grecond-A.csv", A, delimiter=",")
+        np.savetxt("data/"+slozka+"/diletation-erosion/"+typ+"/"+typ+"erosion-diletation-diletation-erosion-col-matrix-3x2-grecond-B.csv", B, delimiter=",")
+        np.savetxt("data/"+slozka+"/diletation-erosion/"+typ+"/"+typ+"erosion-diletation-diletation-erosion-col-matrix-3x2-grecond-k.txt", np.array([k]), fmt="%d")
 
 # M = np.loadtxt("data/zoo/alternating.csv",
 #                         delimiter=",", dtype=int)
