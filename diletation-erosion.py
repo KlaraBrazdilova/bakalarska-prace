@@ -6,36 +6,44 @@ import copy
 from grecond_chatgpt import GreConD
 from diletation import diletation
 from erosion import erosion
-
-# M = np.loadtxt('data/healthcare/alternating.csv', delimiter=',', dtype=int)
-# vstup = copy.deepcopy(M)
-# mask = np.array([[1, 0, 0], [0, 1, 0], [0, 0, 1]])
-# dilet = diletation(M, mask)
-# eros = erosion(dilet, mask)
+from asso.asso import asso2
 
 
-slozky = ["paleo","zoo", "mushroom", "healthcare"]
+slozky = ["paleo","zoo", "healthcare", "mushroom"]
 typy = ["spectral-ordering-pearson-bfp","barycenter-bfp","alternating"]
-# mask = np.array([[0, 1, 0], [0, 1, 0], [0, 1, 0]])
-mask = np.array([[0, 1, 0], [0, 1, 0]])
-# amount = [0.2, 0.3, 0.35, 0.4, 0.5]
-for slozka in slozky:
-    for typ in typy:
-        # M = np.loadtxt("data/"+slozka+"/erosion-diletation/"+typ+"/"+typ+"-col-matrix-3x2.csv",
-        #                 delimiter=",", dtype=int)
-        # vstup = copy.deepcopy(M)
-        # dilet = diletation(M, mask)
-        # eros = erosion(dilet, mask)
-        # print(slozka, typ)
-        # np.savetxt("data/"+slozka+"/diletation-erosion/"+typ+"/"+typ+"erosion-diletation-diletation-erosion-col-matrix-3x2.csv", eros, delimiter=",")
-        M = np.loadtxt("data/"+slozka+"/diletation-erosion/"+typ+"/"+typ+"erosion-diletation-diletation-erosion-col-matrix-3x2.csv",
-                        delimiter=",", dtype=int)
-        A, B, k = GreConD(M)
+maks = [("col-matrix-3x2", np.array([[0, 1, 0], [0, 1, 0]])), ("col-matrix-3x3", np.array([[1, 0, 0], [0, 1, 0], [0, 0, 1]])), ("unit-matrix-3x3", np.array([[0, 1, 0], [0, 1, 0], [0, 1, 0]]))] 
 
-        print(slozka, typ)
-        np.savetxt("data/"+slozka+"/diletation-erosion/"+typ+"/"+typ+"erosion-diletation-diletation-erosion-col-matrix-3x2-grecond-A.csv", A, delimiter=",")
-        np.savetxt("data/"+slozka+"/diletation-erosion/"+typ+"/"+typ+"erosion-diletation-diletation-erosion-col-matrix-3x2-grecond-B.csv", B, delimiter=",")
-        np.savetxt("data/"+slozka+"/diletation-erosion/"+typ+"/"+typ+"erosion-diletation-diletation-erosion-col-matrix-3x2-grecond-k.txt", np.array([k]), fmt="%d")
+# amount = [0.2, 0.3, 0.35, 0.4, 0.5]
+
+for mask_type in maks:
+    mask_name, mask = mask_type
+    for slozka in slozky:
+        for typ in typy:
+            M = np.loadtxt("data/"+slozka+"/"+typ+"/diletation-erosion/"+typ+"-"+mask_name+".csv",
+                            delimiter=",", dtype=int)
+            vstup = copy.deepcopy(M)
+            dilet = diletation(M, mask)
+            final = erosion(dilet, mask)
+            np.savetxt("data/"+slozka+"/"+typ+"/diletation-erosion-erosion-diletation/"+typ+"-diletation-erosion-erosion-diletation-"+mask_name+".csv", final, delimiter=",")
+            
+            A, B, k = GreConD(final)
+            np.savetxt("data/"+slozka+"/"+typ+"/diletation-erosion-erosion-diletation/GreConD/"+typ+"diletation-erosion-erosion-diletation-"+mask_name+"-grecond-A.csv", A, delimiter=",")
+            np.savetxt("data/"+slozka+"/"+typ+"/diletation-erosion-erosion-diletation/GreConD/"+typ+"diletation-erosion-erosion-diletation-"+mask_name+"-grecond-B.csv", B, delimiter=",")
+            np.savetxt("data/"+slozka+"/"+typ+"/diletation-erosion-erosion-diletation/GreConD/"+typ+"diletation-erosion-erosion-diletation-"+mask_name+"-grecond-k.txt", np.array([k]), fmt="%d")
+            
+            C, D = asso2(final, 5, 0.9, 1, 1)
+            np.savetxt("data/"+slozka+"/"+typ+"/diletation-erosion-erosion-diletation/ASSO/"+typ+"-diletation-erosion-erosion-diletation-"+mask_name+"-asso-5-A.csv", C, delimiter=",")
+            np.savetxt("data/"+slozka+"/"+typ+"/diletation-erosion-erosion-diletation/ASSO/"+typ+"-diletation-erosion-erosion-diletation-"+mask_name+"-asso-5-B.csv", D, delimiter=",")
+            
+            E, F = asso2(final, 10, 0.9, 1, 1)
+            np.savetxt("data/"+slozka+"/"+typ+"/diletation-erosion-erosion-diletation/ASSO/"+typ+"-diletation-erosion-erosion-diletation-"+mask_name+"-asso-10-A.csv", E, delimiter=",")
+            np.savetxt("data/"+slozka+"/"+typ+"/diletation-erosion-erosion-diletation/ASSO/"+typ+"-diletation-erosion-erosion-diletation-"+mask_name+"-asso-10-B.csv", F, delimiter=",")
+            
+            G, H = asso2(final, 15, 0.9, 1, 1)
+            np.savetxt("data/"+slozka+"/"+typ+"/diletation-erosion-erosion-diletation/ASSO/"+typ+"-diletation-erosion-erosion-diletation-"+mask_name+"-asso-15-A.csv", G, delimiter=",")
+            np.savetxt("data/"+slozka+"/"+typ+"/diletation-erosion-erosion-diletation/ASSO/"+typ+"-diletation-erosion-erosion-diletation-"+mask_name+"-asso-15-B.csv", H, delimiter=",")
+            
+            print(slozka, typ)
 
 # M = np.loadtxt("data/zoo/alternating.csv",
 #                         delimiter=",", dtype=int)
