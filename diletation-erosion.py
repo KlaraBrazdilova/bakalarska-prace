@@ -19,29 +19,29 @@ for mask_type in maks:
     mask_name, mask = mask_type
     for slozka in slozky:
         for typ in typy:
-            M = np.loadtxt("data/"+slozka+"/"+typ+"/diletation-erosion/"+typ+"-"+mask_name+".csv",
+            M = np.loadtxt("data/"+slozka+"/"+typ+"/"+typ+".csv",
                             delimiter=",", dtype=int)
             vstup = copy.deepcopy(M)
-            dilet = diletation(M, mask)
-            final = erosion(dilet, mask)
-            np.savetxt("data/"+slozka+"/"+typ+"/diletation-erosion-erosion-diletation/"+typ+"-diletation-erosion-erosion-diletation-"+mask_name+".csv", final, delimiter=",")
+            eros = erosion(M, mask)
+            final = diletation(eros, mask)
+            np.savetxt("data/"+slozka+"/"+typ+"/erosion-diletation/"+typ+"-erosion-diletation-"+mask_name+".csv", final, delimiter=",")
             
             A, B, k = GreConD(final)
-            np.savetxt("data/"+slozka+"/"+typ+"/diletation-erosion-erosion-diletation/GreConD/"+typ+"diletation-erosion-erosion-diletation-"+mask_name+"-grecond-A.csv", A, delimiter=",")
-            np.savetxt("data/"+slozka+"/"+typ+"/diletation-erosion-erosion-diletation/GreConD/"+typ+"diletation-erosion-erosion-diletation-"+mask_name+"-grecond-B.csv", B, delimiter=",")
-            np.savetxt("data/"+slozka+"/"+typ+"/diletation-erosion-erosion-diletation/GreConD/"+typ+"diletation-erosion-erosion-diletation-"+mask_name+"-grecond-k.txt", np.array([k]), fmt="%d")
+            np.savetxt("data/"+slozka+"/"+typ+"/erosion-diletation/GreConD/"+typ+"-erosion-diletation-"+mask_name+"-grecond-A.csv", A, delimiter=",")
+            np.savetxt("data/"+slozka+"/"+typ+"/erosion-diletation/GreConD/"+typ+"-erosion-diletation-"+mask_name+"-grecond-B.csv", B, delimiter=",")
+            np.savetxt("data/"+slozka+"/"+typ+"/erosion-diletation/GreConD/"+typ+"-erosion-diletation-"+mask_name+"-grecond-k.txt", np.array([k]), fmt="%d")
             
             C, D = asso2(final, 5, 0.9, 1, 1)
-            np.savetxt("data/"+slozka+"/"+typ+"/diletation-erosion-erosion-diletation/ASSO/"+typ+"-diletation-erosion-erosion-diletation-"+mask_name+"-asso-5-A.csv", C, delimiter=",")
-            np.savetxt("data/"+slozka+"/"+typ+"/diletation-erosion-erosion-diletation/ASSO/"+typ+"-diletation-erosion-erosion-diletation-"+mask_name+"-asso-5-B.csv", D, delimiter=",")
+            np.savetxt("data/"+slozka+"/"+typ+"/erosion-diletation/ASSO/"+typ+"-erosion-diletation-"+mask_name+"-asso-5-A.csv", C, delimiter=",")
+            np.savetxt("data/"+slozka+"/"+typ+"/erosion-diletation/ASSO/"+typ+"-erosion-diletation-"+mask_name+"-asso-5-B.csv", D, delimiter=",")
             
             E, F = asso2(final, 10, 0.9, 1, 1)
-            np.savetxt("data/"+slozka+"/"+typ+"/diletation-erosion-erosion-diletation/ASSO/"+typ+"-diletation-erosion-erosion-diletation-"+mask_name+"-asso-10-A.csv", E, delimiter=",")
-            np.savetxt("data/"+slozka+"/"+typ+"/diletation-erosion-erosion-diletation/ASSO/"+typ+"-diletation-erosion-erosion-diletation-"+mask_name+"-asso-10-B.csv", F, delimiter=",")
+            np.savetxt("data/"+slozka+"/"+typ+"/erosion-diletation/ASSO/"+typ+"-erosion-diletation-"+mask_name+"-asso-10-A.csv", E, delimiter=",")
+            np.savetxt("data/"+slozka+"/"+typ+"/erosion-diletation/ASSO/"+typ+"-erosion-diletation-"+mask_name+"-asso-10-B.csv", F, delimiter=",")
             
             G, H = asso2(final, 15, 0.9, 1, 1)
-            np.savetxt("data/"+slozka+"/"+typ+"/diletation-erosion-erosion-diletation/ASSO/"+typ+"-diletation-erosion-erosion-diletation-"+mask_name+"-asso-15-A.csv", G, delimiter=",")
-            np.savetxt("data/"+slozka+"/"+typ+"/diletation-erosion-erosion-diletation/ASSO/"+typ+"-diletation-erosion-erosion-diletation-"+mask_name+"-asso-15-B.csv", H, delimiter=",")
+            np.savetxt("data/"+slozka+"/"+typ+"/erosion-diletation/ASSO/"+typ+"-erosion-diletation-"+mask_name+"-asso-15-A.csv", G, delimiter=",")
+            np.savetxt("data/"+slozka+"/"+typ+"/erosion-diletation/ASSO/"+typ+"-erosion-diletation-"+mask_name+"-asso-15-B.csv", H, delimiter=",")
             
             print(slozka, typ)
 
