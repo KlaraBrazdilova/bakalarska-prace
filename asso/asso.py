@@ -12,7 +12,7 @@ def asso2(M, k, tau, w_p, w_m):
 
     for i in range(n):
         for j in range(n):
-            if np.sum(np.multiply(M[:, i], M[:, j])) / np.sum(M[:, i]) > tau:
+            if np.sum(np.multiply(M[:, i], M[:, j])) / np.sum(M[:, i]) > tau: #warning pri skusteni nekdy, psano i v matbalu
                 association_matrix[i, j] = 1
 
     # Asso algorithm
