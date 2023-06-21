@@ -20,7 +20,7 @@ def square_count(M, size, i, j):
     return count/(size*size)
 
 
-def square_filter(size, M, limit):
+def square_filter(M, limit, size=3):
     """Filter matrix with square filter of size size."""
     N = M.copy()
     for i in range(M.shape[0]):

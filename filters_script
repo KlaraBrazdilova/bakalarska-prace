@@ -2,7 +2,7 @@ import numpy as np
 
 from diletation import diletation
 from erosion import erosion
-from square_fillter import square_fillter
+from square_fillter import square_filter
 from deleting_ones_banded_mask import banded_ones
 from asso.asso import asso2
 from grecond_chatgpt import GreConD
@@ -24,7 +24,7 @@ matrixes = [("col-matrix-3x2", np.array([[0, 1, 0], [0, 1, 0]])), ("col-matrix-3
 files = ["paleo", "zoo", "mushroom", "healthcare"]
 types = ["barycenter", "barycenter-bfp-alternating"]
 filters = [{"name":"deleted-band", "function": banded_ones, "amouts": [("30", 30), ("50", 50), ("70", 70), ("90", 90)]}, 
-           {"name":"square-filter", "function": square_fillter, "amouts": [("0.2", 0.2), ("0.3", 0.3), ("0.4", 0.4), ("0.5", 0.5), ("0.35", 0.35)]}, 
+           {"name":"square-filter", "function": square_filter, "amouts": [("0.2", 0.2), ("0.3", 0.3), ("0.4", 0.4), ("0.5", 0.5), ("0.35", 0.35)]}, 
            {"name":"diletation-erosion", "function": diletation_erosion, "amouts": matrixes}, 
            {"name":"erosion-diletation", "function": erosion_diletation, "amouts": matrixes}, 
            {"name":"diletation-erosion-erosion-diletation", "function": diletation_erosion_erosion_diletation, "amouts": matrixes}, 
@@ -52,6 +52,6 @@ for file in files:
 
                 for factor in factors:                    
                     C, D = asso2(filtred, factor, 0.9, 1, 1)
-                    np.savetxt("data/"+file+"/"+type+"/"+filter_name+"/ASSO/"+type+"-"+filter_name+"-"+name+"-asso-"+factor+"-A.csv", C, delimiter=",") 
-                    np.savetxt("data/"+file+"/"+type+"/"+filter_name+"/ASSO/"+type+"-"+filter_name+"-"+name+"-asss-"+factor+"-B.csv", D, delimiter=",") 
+                    np.savetxt("data/"+file+"/"+type+"/"+filter_name+"/ASSO/"+type+"-"+filter_name+"-"+name+"-asso-"+str(factor)+"-A.csv", C, delimiter=",") 
+                    np.savetxt("data/"+file+"/"+type+"/"+filter_name+"/ASSO/"+type+"-"+filter_name+"-"+name+"-asss-"+str(factor)+"-B.csv", D, delimiter=",") 
                 
