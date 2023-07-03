@@ -10,7 +10,7 @@ for type in types:
                     delimiter=",", dtype=int)
     
 
-    fig, axs = plt.subplots(1, 1, figsize=(12, 9), dpi=100)
+    fig, axs = plt.subplots(1, 1, figsize=(12, 9), dpi=100) 
     axs.imshow(vstup, cmap=newcmp_black_white)
     axs.set_title("healthcare - "+type)
 
