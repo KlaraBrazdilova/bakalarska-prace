@@ -1,6 +1,7 @@
 import numpy as np
 import copy
 import matplotlib.pyplot as plt
+import matplotlib
 
 from bidirectional_fixed_permutation import bfp
 
@@ -19,11 +20,14 @@ def spectral_ordering(M: np.matrix) -> np.matrix:
             # Jaccard's coeficient
             x = Q[:,i]
             y = Q[:,j]
-            union = sum(x) + sum(y)
+            
             intersection = 0
             for k in range(m):
                 if x[k] and y[k]:
                     intersection += 1
+
+            union = sum(x) + sum(y) - intersection  
+                  
             S[i,j] = intersection / union
             S[j,i] = intersection / union
 
@@ -39,9 +43,17 @@ def spectral_ordering(M: np.matrix) -> np.matrix:
 
     return A
 
-slozky = ["paleo","zoo", "healthcare", "mushroom"]
-typy = ["spectral-ordering-pearson-bfp","barycenter-bfp","alternating"]
-M = np.loadtxt("data/paleo/paleo.csv",
+# slozky = ["paleo","zoo", "healthcare", "mushroom"]
+# typy = ["spectral-ordering-pearson-bfp","barycenter-bfp","alternating"]
+M = np.loadtxt("data/zoo/zoo.csv",
                             delimiter=",", dtype=int)
-vysledek = spectral_ordering(M) 
-np.savetxt("data/paleo/paleo-spectral-ordering-jaccard.csv", vysledek, delimiter=",", fmt='%d')
+# M = np.array([[0, 0, 1, 0],[1, 1, 1, 1], [0, 1, 1, 1],[0, 1, 1, 0]])
+vysledek = bfp(spectral_ordering(M))
+
+print(vysledek)
+newcmp_black_white = matplotlib.colors.LinearSegmentedColormap.from_list("", ['white','black'])
+fig, axs = plt.subplots(1, 1, figsize=(12, 9)) 
+axs.imshow(vysledek, cmap=newcmp_black_white) #pro mushroom aspect='auto', interpolation='nearest'
+axs.set_title("spectral")
+plt.show()
+# np.savetxt("data/paleo/paleo-spectral-ordering-jaccard.csv", vysledek, delimiter=",", fmt='%d')
