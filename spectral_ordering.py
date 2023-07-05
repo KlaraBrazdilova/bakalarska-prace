@@ -28,8 +28,8 @@ def spectral_ordering(M: np.matrix) -> np.matrix:
 
             union = sum(x) + sum(y) - intersection  
                   
-            S[i,j] = intersection / union
-            S[j,i] = intersection / union
+            S[i,j] = 1 + intersection / union
+            S[j,i] = 1 + intersection / union
 
     #Laplacian matrix
     L = np.diag(np.diag(S)) - S
@@ -54,6 +54,6 @@ print(vysledek)
 newcmp_black_white = matplotlib.colors.LinearSegmentedColormap.from_list("", ['white','black'])
 fig, axs = plt.subplots(1, 1, figsize=(12, 9)) 
 axs.imshow(vysledek, cmap=newcmp_black_white) #pro mushroom aspect='auto', interpolation='nearest'
-axs.set_title("spectral")
+axs.set_title("spectral ordering - jaccard coeficient - with plus")
 plt.show()
 # np.savetxt("data/paleo/paleo-spectral-ordering-jaccard.csv", vysledek, delimiter=",", fmt='%d')
