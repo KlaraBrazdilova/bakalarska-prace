@@ -28,8 +28,17 @@ def spectral_ordering(M: np.matrix) -> np.matrix:
 
             union = sum(x) + sum(y) - intersection  
                   
-            S[i,j] = 1 + intersection / union
-            S[j,i] = 1 + intersection / union
+            S[i,j] = 1 - intersection / union
+            S[j,i] = 1 - intersection / union
+
+    # print(S)
+    min = np.min(S)
+    max = np.max(S)
+    # print(min, max)
+    for i in range(n):
+        for j in range(i, n):
+            S[i,j] = (S[i,j] - min) / (max - min)
+            S[j,i] = (S[j,i] - min) / (max - min)
 
     #Laplacian matrix
     L = np.diag(np.diag(S)) - S
@@ -50,7 +59,7 @@ M = np.loadtxt("data/zoo/zoo.csv",
 # M = np.array([[0, 0, 1, 0],[1, 1, 1, 1], [0, 1, 1, 1],[0, 1, 1, 0]])
 vysledek = bfp(spectral_ordering(M))
 
-print(vysledek)
+# print(vysledek)
 newcmp_black_white = matplotlib.colors.LinearSegmentedColormap.from_list("", ['white','black'])
 fig, axs = plt.subplots(1, 1, figsize=(12, 9)) 
 axs.imshow(vysledek, cmap=newcmp_black_white) #pro mushroom aspect='auto', interpolation='nearest'
