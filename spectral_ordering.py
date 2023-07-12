@@ -5,6 +5,7 @@ import matplotlib
 
 from bidirectional_fixed_permutation import bfp
 
+
 def spectral_ordering(M: np.matrix) -> np.matrix:
     [m, n] = M.shape
 
@@ -13,56 +14,55 @@ def spectral_ordering(M: np.matrix) -> np.matrix:
     for i in range(n):
         for j in range(i, n):
             # # Pearson's coeficient
-            # pom = np.corrcoef(Q[:, i], Q[:, j])[0][1]
-            # S[i,j] = (1 + pom)/2 
-            # S[j,i] = (1 + pom)/2 
-            
+            pom = np.corrcoef(Q[:, i], Q[:, j])[0][1]
+            S[i,j] = (1 + pom)/2
+            S[j,i] = (1 + pom)/2
+
             # Jaccard's coeficient
-            x = Q[:,i]
-            y = Q[:,j]
-            
-            intersection = 0
-            for k in range(m):
-                if x[k] and y[k]:
-                    intersection += 1
+            # coef = sum(np.bitwise_and(Q[:, i], Q[:, j])) / sum(
+            #     np.bitwise_or(Q[:, i], Q[:, j])
+            # )
+            # S[i, j] = (1 + coef) / 2
+            # S[j, i] = S[i, j]
 
-            union = sum(x) + sum(y) - intersection  
-                  
-            S[i,j] = 1 - intersection / union
-            S[j,i] = 1 - intersection / union
-
-    # print(S)
-    min = np.min(S)
-    max = np.max(S)
-    # print(min, max)
-    for i in range(n):
-        for j in range(i, n):
-            S[i,j] = (S[i,j] - min) / (max - min)
-            S[j,i] = (S[j,i] - min) / (max - min)
-
-    #Laplacian matrix
-    L = np.diag(np.diag(S)) - S
+    # Laplacian matrix
+    L = np.diag(np.diag(sum(S,2))) - S
 
     # Eigenvalues and eigenvectors
     D, V = np.linalg.eigh(L)
-    
-    a = np.argsort(D) 
-    perm = np.flip(np.argsort(V[:,a[1]], kind='stable'))
+
+    a = np.argsort(D)
+    perm = np.flip(np.argsort(V[:, a[1]], kind="stable"))
     A = M[:, perm]
 
     return A
 
-# slozky = ["paleo","zoo", "healthcare", "mushroom"]
+newcmp_black_white = matplotlib.colors.LinearSegmentedColormap.from_list(
+    "", ["white", "black"]
+)
+files = ["paleo","zoo", "healthcare", "mushroom"]
 # typy = ["spectral-ordering-pearson-bfp","barycenter-bfp","alternating"]
-M = np.loadtxt("data/zoo/zoo.csv",
-                            delimiter=",", dtype=int)
-# M = np.array([[0, 0, 1, 0],[1, 1, 1, 1], [0, 1, 1, 1],[0, 1, 1, 0]])
-vysledek = bfp(spectral_ordering(M))
+for file in files:
+    M = np.loadtxt("data/"+file+"/"+file+".csv", delimiter=",", dtype=int)
+    spectral = spectral_ordering(M)
+    vysledek = bfp(spectral)
+    np.savetxt("data/"+file+"/spectral-ordering-pearson-bfp-fix.csv", vysledek, delimiter=",", fmt='%d')
+    np.savetxt("data/"+file+"/spectral-ordering-pearson-fix.csv", spectral, delimiter=",", fmt='%d')
+    fig, axs = plt.subplots(1, 1, figsize=(12, 9))
+    axs.imshow(vysledek, cmap=newcmp_black_white)  # pro mushroom aspect='auto', interpolation='nearest'
+    axs.set_title("spectral ordering - pearson coeficient")
+    plt.savefig("data/"+file+"/spectral-ordering-pearson-bfp-fix.png")
+    matplotlib.pyplot.close()
+    # plt.show()
+# M = np.loadtxt("data/paleo/paleo.csv", delimiter=",", dtype=int)
+
 
 # print(vysledek)
-newcmp_black_white = matplotlib.colors.LinearSegmentedColormap.from_list("", ['white','black'])
-fig, axs = plt.subplots(1, 1, figsize=(12, 9)) 
-axs.imshow(vysledek, cmap=newcmp_black_white) #pro mushroom aspect='auto', interpolation='nearest'
-axs.set_title("spectral ordering - jaccard coeficient - with plus")
-plt.show()
+
+# fig, axs = plt.subplots(1, 1, figsize=(12, 9))
+# axs.imshow(
+#     vysledek, cmap=newcmp_black_white
+# )  # pro mushroom aspect='auto', interpolation='nearest'
+# axs.set_title("spectral ordering - pearson coeficient")
+# plt.show()
 # np.savetxt("data/paleo/paleo-spectral-ordering-jaccard.csv", vysledek, delimiter=",", fmt='%d')
