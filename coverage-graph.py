@@ -3,6 +3,7 @@ from matplotlib import pyplot as plt
 import matplotlib
 
 from coverage_guality import coverage_guality
+from matrix_similarity import matrix_similarity
 
 # types = ["spectral-ordering-pearson-bfp", "barycenter-bfp", "alternating", "barycenter", "barycenter-bfp-alternating", "spectral-ordering-pearson-bfp-fix"]
 # filters = [("square-filter",["0.2", "0.3", "0.4", "0.5", "0.35"] ), 
@@ -46,14 +47,22 @@ from coverage_guality import coverage_guality
 # I = np.loadtxt("data/zoo/alternating/square-filter/alternating-square-filter-0.2.csv", delimiter=",", dtype=int)
 # coverage = []
 
+
+def coverage_guality_2(product, I):
+    coverage = [] #pridat 0 na začátek
+    for i in range(1, I.shape[0]):
+        coverage.append(matrix_similarity(product, I))
+    return coverage
+
 fig, axs = plt.subplots(1, 1, figsize=(10,5))
 for quantity in ["0.2", "0.3", "0.4", "0.5", "0.35"]: #, "0.4", "0.5", "0.35"
-    A = np.loadtxt("data/paleo/alternating/square-filter/GreConD/alternating-square-filter-"+quantity+"-grecond-A.csv",
-                 delimiter=",", dtype=int)
-    B = np.loadtxt("data/paleo/alternating/square-filter/GreConD/alternating-square-filter-"+quantity+"-grecond-B.csv",
-                 delimiter=",", dtype=int)
+    # A = np.loadtxt("data/paleo/alternating/square-filter/GreConD/alternating-square-filter-"+quantity+"-grecond-A.csv",
+    #              delimiter=",", dtype=int)
+    # B = np.loadtxt("data/paleo/alternating/square-filter/GreConD/alternating-square-filter-"+quantity+"-grecond-B.csv",
+    #              delimiter=",", dtype=int)
     I = np.loadtxt("data/paleo/alternating/square-filter/alternating-square-filter-"+quantity+".csv", delimiter=",", dtype=int)
-    plt.plot(range(1,I.shape[0]-1), coverage_guality(A, B, I)[1:], label="Alternating method - square filter - "+quantity+" - GreConD")
+    product = np.loadtxt("data/paleo/alternating/square-filter/alternating-square-filter-"+quantity+"-grecond-product.csv", delimiter=",", dtype=int)
+    plt.plot(range(1,I.shape[0]-1), coverage_guality_2(product, I)[1:], label="Alternating method - square filter - "+quantity+" - GreConD")
     print(quantity)
     # i = i+1
     # coverage.append(coverage_guality(A, B, I)) #rovnou udělat plt.plot

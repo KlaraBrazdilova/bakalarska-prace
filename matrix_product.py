@@ -29,22 +29,23 @@ def matrix_product(A: np.matrix, B: np.matrix) -> np.matrix:
 
     return C   
 
-# A = np.loadtxt("data/zoo/grecond-alternating-A.csv",
-#                  delimiter=",", dtype=int)
-# B = np.loadtxt("data/zoo/grecond-alternating-B.csv",
-#                  delimiter=",", dtype=int)
-# I = np.loadtxt("data/zoo/zoo.csv", delimiter=",", dtype=int)
-# A = np.matrix([[1, 0, 0, 1 ,0],[0,0,1,0,0], [0,1,0,0,0], [1,0,0,0,1], [1,0,0,0,0]])
-# B = np.matrix([[0, 0, 0, 1, 1,0],[1,1,0,0,1,1], [0,1,0,1,0,1], [0,0,1,0,0,1], [1,0,0,0,0,0]])
-# I = np.matrix([[0,0,1,1,1,1],[0,1,0,1,0,1],[1,1,0,0,1,1],[1,0,0,1,1,0],[0,0,0,1,1,0]])
-# product = matrix_product(A, B)
-# print(product)
-# print(matrix_similarity(product, I))
+types = ["spectral-ordering-pearson-bfp", "barycenter-bfp", "alternating", "barycenter", "barycenter-bfp-alternating", "spectral-ordering-pearson-bfp-fix"]
+filters = [("square-filter",["0.2", "0.3", "0.4", "0.5", "0.35"] ), 
+           ("diletation-erosion",["col-matrix-3x3", "col-matrix-3x2", "unit-matrix-3x3"]), 
+           ("erosion-diletation",["col-matrix-3x3", "col-matrix-3x2", "unit-matrix-3x3"]), 
+           ("diletation-erosion-erosion-diletation",["col-matrix-3x3", "col-matrix-3x2", "unit-matrix-3x3"]), 
+           ("erosion-diletation-diletation-erosion",["col-matrix-3x3", "col-matrix-3x2", "unit-matrix-3x3"]), 
+           ("deleted-band", ["30", "50", "70", "90"])]
+folders = ["healthcare"] #"mushroom" export zvlast kvuli roztazeni , "paleo", "zoo", "healthcare"
 
-# def binary_matrix_product(A, B): #chatGPT
-#     # ensure A and B are binary matrices
-#     if not np.all(np.in1d(A, [0,1])) or not np.all(np.in1d(B, [0,1])):
-#         raise ValueError("Input matrices must be binary")
-
-#     # compute product using dot product and boolean operators
-#     return (A.dot(B) > 0).astype(int)         
+for folder in folders:
+    for type in types:
+        for filter in filters:
+            filter_name, filter_amount = filter
+            for amount in filter_amount:
+                A = np.loadtxt("data/"+folder+"/"+type+"/"+filter_name+"/GreConD/"+type+"-"+filter_name+"-"+amount+"-grecond-A.csv", delimiter=",", dtype=int)
+                B = np.loadtxt("data/"+folder+"/"+type+"/"+filter_name+"/GreConD/"+type+"-"+filter_name+"-"+amount+"-grecond-B.csv", delimiter=",", dtype=int)
+                
+                product = matrix_product(A, B)
+                np.savetxt("data/"+folder+"/"+type+"/"+filter_name+"/GreConD/"+type+"-"+filter_name+"-"+amount+"-grecond-product.csv", product, delimiter=",", fmt="%d")
+                print(amount)
