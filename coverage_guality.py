@@ -11,6 +11,9 @@ def coverage_guality(A, B, I):
         coverage.append(matrix_similarity(matrix_product(A[:,0:i], B[0:i,:]), I))
     return coverage
 
+#nutná optimalizace - matrix_product se vysledek vzdycky stejný jak ten předešlý v cyklu, jen dojde k přidání další hodnoty?
+
+
 # def coverage_guality_2(product, I):
 #     coverage = [] #pridat 0 na začátek
 #     for i in range(1, I.shape[0]):
