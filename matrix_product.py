@@ -1,5 +1,6 @@
 import numpy as np
 from matrix_similarity import matrix_similarity
+from matrix_product_2 import matrix_product_2
 
 def matrix_product(A: np.matrix, B: np.matrix) -> np.matrix:
     """Compute the binary matrix product of A and B.
@@ -28,6 +29,7 @@ def matrix_product(A: np.matrix, B: np.matrix) -> np.matrix:
             C[i, j] = dot_product
 
     return C   
+
 
 # #"spectral-ordering-pearson-bfp"
 # types = ["barycenter-bfp", "alternating", "barycenter", "barycenter-bfp-alternating", "spectral-ordering-pearson-bfp-fix"]

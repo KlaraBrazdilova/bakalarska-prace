@@ -4,11 +4,12 @@ import matplotlib
 
 from matrix_similarity import matrix_similarity
 from matrix_product import matrix_product
+from matrix_product_2 import matrix_product_2
 
 def coverage_guality(A, B, I):
     coverage = [] #pridat 0 na začátek
     for i in range(1, I.shape[0]):
-        coverage.append(matrix_similarity(matrix_product(A[:,0:i], B[0:i,:]), I))
+        coverage.append(matrix_similarity(matrix_product_2(A[:,0:i], B[0:i,:]), I))
     return coverage
 
 #nutná optimalizace - matrix_product se vysledek vzdycky stejný jak ten předešlý v cyklu, jen dojde k přidání další hodnoty?
