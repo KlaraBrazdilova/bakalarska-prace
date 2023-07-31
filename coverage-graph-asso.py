@@ -5,9 +5,14 @@ import matplotlib
 from coverage_guality import coverage_guality
 from matrix_similarity import matrix_similarity
 
-types = ["barycenter-bfp", "alternating", "barycenter", "barycenter-bfp-alternating", "spectral-ordering-pearson-bfp-fix"]
-filters = [("deleted-band", ["30", "50", "70", "90"])]
-folders = ["mushroom"] #"mushroom" export zvlast kvuli roztazeni , "paleo", "zoo", "healthcare"
+types = ["barycenter-bfp"]#, "alternating", "barycenter", "barycenter-bfp-alternating", "spectral-ordering-pearson-bfp-fix"]
+filters = [("square-filter",["0.2", "0.3", "0.4", "0.5", "0.35"] ), 
+           ("diletation-erosion",["col-matrix-3x3", "col-matrix-3x2", "unit-matrix-3x3"]), 
+           ("erosion-diletation",["col-matrix-3x3", "col-matrix-3x2", "unit-matrix-3x3"]), 
+           ("diletation-erosion-erosion-diletation",["col-matrix-3x3", "col-matrix-3x2", "unit-matrix-3x3"]), 
+           ("erosion-diletation-diletation-erosion",["col-matrix-3x3", "col-matrix-3x2", "unit-matrix-3x3"]), 
+           ("deleted-band", ["30", "50", "70", "90"])]
+folders = ["zoo"] #"mushroom" export zvlast kvuli roztazeni , "paleo", "zoo", "healthcare"
 factors = ["5", "10", "15"]
 
 for factor in factors:
@@ -23,7 +28,7 @@ for factor in factors:
                     B = np.loadtxt("data/"+folder+"/"+type+"/"+filter_name+"/ASSO/"+type+"-"+filter_name+"-"+amount+"-asso-"+factor+"-B.csv", delimiter=",", dtype=int)
                     # coverage.append(coverage_guality(A, B, I))
                     print(amount)
-                    plt.plot(range(1,I.shape[0]-1), coverage_guality(A, B, I)[1:], label=type+" - "+filter_name+" - "+amount+" - ASSO - "+factor)
+                    plt.plot(range(1,int(factor)+2), coverage_guality(A, B, I)[1:int(factor)+2], label=type+" - "+filter_name+" - "+amount+" - ASSO - "+factor)
 
 
                 plt.tight_layout()
@@ -32,7 +37,8 @@ for factor in factors:
                 plt.ylabel('Pokrytí', fontsize="15")
                 plt.title('Coverage of' + type)
                 plt.legend(fontsize="15")
-                plt.savefig("data/"+folder+"/"+type+"/"+filter_name+"/ASSO/"+type+"-"+filter_name+"-asso"+factor+"-coverage.png", bbox_inches='tight')        
+                #plt.savefig("data/"+folder+"/"+type+"/"+filter_name+"/ASSO/"+type+"-"+filter_name+"-asso"+factor+"-coverage.png", bbox_inches='tight')        
+                plt.show()
                 matplotlib.pyplot.close()
                 print("graph done")
 
