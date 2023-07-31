@@ -6,10 +6,25 @@ from coverage_guality import coverage_guality
 from matrix_similarity import matrix_similarity
 
 types = ["barycenter-bfp", "alternating", "barycenter", "barycenter-bfp-alternating", "spectral-ordering-pearson-bfp-fix"]
+<<<<<<< HEAD
 filters = [("diletation-erosion-erosion-diletation",["col-matrix-3x3", "col-matrix-3x2", "unit-matrix-3x3"]), 
            ("erosion-diletation-diletation-erosion",["col-matrix-3x3", "col-matrix-3x2", "unit-matrix-3x3"]), 
            ("deleted-band", ["30", "50", "70", "90"])]
 folders = ["paleo"] #"mushroom" export zvlast kvuli roztazeni , "paleo", "zoo", "healthcare"
+=======
+filters = [("square-filter",["0.2", "0.3", "0.4", "0.5", "0.35"] ), 
+           ("diletation-erosion",["col-matrix-3x3", "col-matrix-3x2", "unit-matrix-3x3"]), 
+<<<<<<< HEAD
+           ("erosion-diletation",["col-matrix-3x3", "col-matrix-3x2", "unit-matrix-3x3"])]
+folders = ["paleo"] #"mushroom" export zvlast kvuli roztazeni , "paleo", "zoo", "healthcare"
+=======
+           ("erosion-diletation",["col-matrix-3x3", "col-matrix-3x2", "unit-matrix-3x3"]), 
+           ("diletation-erosion-erosion-diletation",["col-matrix-3x3", "col-matrix-3x2", "unit-matrix-3x3"]), 
+           ("erosion-diletation-diletation-erosion",["col-matrix-3x3", "col-matrix-3x2", "unit-matrix-3x3"]), 
+           ("deleted-band", ["30", "50", "70", "90"])]
+folders = ["healthcare"] #"mushroom" export zvlast kvuli roztazeni , "paleo", "zoo", "healthcare"
+>>>>>>> 3da041f0257ba22bacaa3ff8659409bd16e91d82
+>>>>>>> fd94c3720535b954ccf7e309683e675990a0a34b
 factors = ["5", "10", "15"]
 
 for factor in factors:
