@@ -5,7 +5,7 @@ import matplotlib
 from coverage_guality import coverage_guality
 from matrix_similarity import matrix_similarity
 
-types = ["barycenter-bfp", "alternating", "barycenter", "barycenter-bfp-alternating", "spectral-ordering-pearson-bfp-fix"]
+types = ["barycenter", "barycenter-bfp-alternating"]#"barycenter-bfp", "alternating", "spectral-ordering-pearson-bfp-fix"
 filters = [("square-filter",["0.2", "0.3", "0.4", "0.5", "0.35"] ), 
            ("diletation-erosion",["col-matrix-3x3", "col-matrix-3x2", "unit-matrix-3x3"]), 
            ("erosion-diletation",["col-matrix-3x3", "col-matrix-3x2", "unit-matrix-3x3"]), 
