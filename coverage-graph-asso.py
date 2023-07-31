@@ -6,13 +6,10 @@ from coverage_guality import coverage_guality
 from matrix_similarity import matrix_similarity
 
 types = ["barycenter-bfp", "alternating", "barycenter", "barycenter-bfp-alternating", "spectral-ordering-pearson-bfp-fix"]
-filters = [("square-filter",["0.2", "0.3", "0.4", "0.5", "0.35"] ), 
-           ("diletation-erosion",["col-matrix-3x3", "col-matrix-3x2", "unit-matrix-3x3"]), 
-           ("erosion-diletation",["col-matrix-3x3", "col-matrix-3x2", "unit-matrix-3x3"]), 
-           ("diletation-erosion-erosion-diletation",["col-matrix-3x3", "col-matrix-3x2", "unit-matrix-3x3"]), 
+filters = [("diletation-erosion-erosion-diletation",["col-matrix-3x3", "col-matrix-3x2", "unit-matrix-3x3"]), 
            ("erosion-diletation-diletation-erosion",["col-matrix-3x3", "col-matrix-3x2", "unit-matrix-3x3"]), 
            ("deleted-band", ["30", "50", "70", "90"])]
-folders = ["zoo"] #"mushroom" export zvlast kvuli roztazeni , "paleo", "zoo", "healthcare"
+folders = ["paleo"] #"mushroom" export zvlast kvuli roztazeni , "paleo", "zoo", "healthcare"
 factors = ["5", "10", "15"]
 
 for factor in factors:
