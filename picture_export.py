@@ -2,20 +2,23 @@ import numpy as np
 from matplotlib import pyplot as plt
 import matplotlib
 
-types = ["spectral-ordering-pearson-bfp-fix", "barycenter-bfp", "alternating", "barycenter", "barycenter-bfp-alternating"]
+# types = ["spectral-ordering-pearson-bfp-fix", "barycenter-bfp", "alternating", "barycenter", "barycenter-bfp-alternating"]
 newcmp_black_white = matplotlib.colors.LinearSegmentedColormap.from_list("", ['white','black'])
-folders = ["paleo", "zoo", "healthcare"]
+# folders = ["paleo", "zoo", "healthcare"]
 
-for folder in folders:
-    for type in types:
-        data = np.loadtxt("data/"+folder+"/"+type+"/"+type+".csv", delimiter=",", dtype=int)
+# for folder in folders:
+#     for type in types:
 
-        fig, axs = plt.subplots(1, 1, figsize=(12, 9)) 
-        plt.tight_layout()
-        axs.imshow(data, cmap=newcmp_black_white) #pro mushroom aspect='auto', interpolation='nearest'
-                        
-        plt.savefig("data/"+folder+"/"+type+"/"+type+".png", bbox_inches='tight', dpi=300)       
-        matplotlib.pyplot.close()
+folder = "paleo"
+
+
+data = np.loadtxt("data/"+folder+"/"+folder+".csv", delimiter=",", dtype=int)
+fig, axs = plt.subplots(1, 1, figsize=(12, 9)) 
+plt.tight_layout()
+axs.imshow(data, cmap=newcmp_black_white) #pro mushroom aspect='auto', interpolation='nearest'
+plt.show()                      
+# plt.savefig("data/"+folder+"/"+type+"/"+type+".png", bbox_inches='tight', dpi=300)       
+matplotlib.pyplot.close()
 
 
 
