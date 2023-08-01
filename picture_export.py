@@ -2,20 +2,20 @@ import numpy as np
 from matplotlib import pyplot as plt
 import matplotlib
 
-types = ["spectral-ordering-pearson-bfp", "barycenter-bfp", "alternating", "barycenter", "barycenter-bfp-alternating"]
+types = ["spectral-ordering-pearson-bfp-fix", "barycenter-bfp", "alternating", "barycenter", "barycenter-bfp-alternating"]
 newcmp_black_white = matplotlib.colors.LinearSegmentedColormap.from_list("", ['white','black'])
+folders = ["paleo", "zoo", "healthcare"]
 
-for type in types:
-    vstup = np.loadtxt("data/healthcare/"+type+"/"+type+".csv",
-                    delimiter=",", dtype=int)
-    
+for folder in folders:
+    for type in types:
+        data = np.loadtxt("data/"+folder+"/"+type+"/"+type+".csv", delimiter=",", dtype=int)
 
-    fig, axs = plt.subplots(1, 1, figsize=(12, 9), dpi=100) 
-    axs.imshow(vstup, cmap=newcmp_black_white)
-    axs.set_title("healthcare - "+type)
-
-    # plt.show()
-    plt.savefig("data/healthcare/"+type+"/"+type+".png")
+        fig, axs = plt.subplots(1, 1, figsize=(12, 9)) 
+        plt.tight_layout()
+        axs.imshow(data, cmap=newcmp_black_white) #pro mushroom aspect='auto', interpolation='nearest'
+                        
+        plt.savefig("data/"+folder+"/"+type+"/"+type+".png", bbox_inches='tight', dpi=300)       
+        matplotlib.pyplot.close()
 
 
 
