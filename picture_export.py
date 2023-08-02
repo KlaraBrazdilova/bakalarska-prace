@@ -9,13 +9,13 @@ newcmp_black_white = matplotlib.colors.LinearSegmentedColormap.from_list("", ['w
 # for folder in folders:
 #     for type in types:
 
-folder = "paleo"
+folder = "mushroom"
 
 
 data = np.loadtxt("data/"+folder+"/"+folder+".csv", delimiter=",", dtype=int)
-fig, axs = plt.subplots(1, 1, figsize=(12, 9)) 
+fig, axs = plt.subplots(1, 1, figsize=(12, 9), dpi=100) 
 plt.tight_layout()
-axs.imshow(data, cmap=newcmp_black_white) #pro mushroom aspect='auto', interpolation='nearest'
+axs.imshow(data, cmap=newcmp_black_white, aspect='auto', interpolation='nearest')
 plt.show()                      
 # plt.savefig("data/"+folder+"/"+type+"/"+type+".png", bbox_inches='tight', dpi=300)       
 matplotlib.pyplot.close()
