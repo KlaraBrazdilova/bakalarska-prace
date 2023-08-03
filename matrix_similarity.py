@@ -10,10 +10,17 @@ def matrix_similarity(A: np.matrix, B: np.matrix) -> np.matrix:
 
     return similarity
 
+def similarity_2(A, B):
+    Y = np.sum(A)
+    X = np.sum(np.logical_xor(A, B))
+    return 100*X/Y
 
-# M = np.loadtxt("data/zoo/alternating-deleted-band-30.csv",
-#                  delimiter=",", dtype=int)
-# A = np.loadtxt("data/zoo/alternating-deleted-band-90.csv",
-#                  delimiter=",", dtype=int)
 
+M = np.loadtxt("data/paleo/spectral-ordering-pearson-bfp/square-filter/spectral-ordering-pearson-bfp-square-filter-0.3.csv",
+                 delimiter=",", dtype=int)
+A = np.loadtxt("data/paleo/spectral-ordering-pearson-bfp/spectral-ordering-pearson-bfp.csv",
+                 delimiter=",", dtype=int)
+
+print(similarity_2(A,M))
 # print(matrix_similarity(M, A))
+# print(matrix_similarity(A, M))

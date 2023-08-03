@@ -3,20 +3,17 @@ from matplotlib import pyplot as plt
 import matplotlib
 
 from coverage_guality import coverage_guality
+from coverage_guality import coverage_guality_2
 from matrix_similarity import matrix_similarity
 
-<<<<<<< HEAD
-types = ["spectral-ordering-pearson-bfp-fix"]#"barycenter-bfp", "alternating", "barycenter", "barycenter-bfp-alternating",
-=======
-types = ["barycenter", "barycenter-bfp-alternating"]#"barycenter-bfp", "alternating", "spectral-ordering-pearson-bfp-fix"
->>>>>>> 1831585568a6ced17e2749b156d194cde640cdac
+types = ["spectral-ordering-pearson-bfp", "barycenter-bfp", "alternating", "barycenter", "barycenter-bfp-alternating"]
 filters = [("square-filter",["0.2", "0.3", "0.4", "0.5", "0.35"] ), 
            ("diletation-erosion",["col-matrix-3x3", "col-matrix-3x2", "unit-matrix-3x3"]), 
            ("erosion-diletation",["col-matrix-3x3", "col-matrix-3x2", "unit-matrix-3x3"]), 
            ("diletation-erosion-erosion-diletation",["col-matrix-3x3", "col-matrix-3x2", "unit-matrix-3x3"]), 
            ("erosion-diletation-diletation-erosion",["col-matrix-3x3", "col-matrix-3x2", "unit-matrix-3x3"]), 
            ("deleted-band", ["30", "50", "70", "90"])]
-folders = ["mushroom"] #"mushroom" export zvlast kvuli roztazeni , "paleo", "zoo", "healthcare"
+folders = ["zoo"] #"mushroom" export zvlast kvuli roztazeni , "paleo", "zoo", "healthcare"
 
 for folder in folders:
     for type in types:
@@ -30,7 +27,7 @@ for folder in folders:
                 B = np.loadtxt("data/"+folder+"/"+type+"/"+filter_name+"/GreConD/"+type+"-"+filter_name+"-"+amount+"-grecond-B.csv", delimiter=",", dtype=int)
                 # coverage.append(coverage_guality(A, B, I))
                 print(amount)
-                plt.plot(range(1,I.shape[0]-1), coverage_guality(A, B, I)[1:], label=type+" - "+filter_name+" - "+amount+" - GreConD")
+                plt.plot(range(1,I.shape[0]-1), coverage_guality_2(A, B, I)[1:], label=type+" - "+filter_name+" - "+amount+" - GreConD")
 
             # for i in range(0, len(filter_amount)):
             #     plt.plot(range(0,I.shape[0]-1), coverage[i], label=type+" - "+filter_name+" - "+filter_amount[i]+" - GreConD")
@@ -39,8 +36,9 @@ for folder in folders:
             plt.margins(0,0)
             plt.xlabel('Počet faktorů', fontsize="15")
             plt.ylabel('Pokrytí', fontsize="15")
-            plt.title('Coverage of Alternating method')
+            plt.title('Coverage of '+type)
             plt.legend(fontsize="15")
+            # plt.show()
             plt.savefig("data/"+folder+"/"+type+"/"+filter_name+"/GreConD/"+type+"-"+filter_name+"-grecond-coverage.png", bbox_inches='tight')        
             matplotlib.pyplot.close()
             print("graph done")
