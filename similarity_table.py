@@ -1,6 +1,8 @@
 import numpy as np
 
 from matrix_similarity import similarity_2
+from matrix_similarity import percentage_similarity
+from matrix_similarity import simple_matching_coefficient
 
 types = ["spectral-ordering-pearson-bfp", "barycenter-bfp", "alternating", "barycenter", "barycenter-bfp-alternating"]
 filters = [("square-filter",["0.2", "0.3", "0.4", "0.5", "0.35"] ), 
@@ -23,11 +25,11 @@ for folder in folders:
             line.append(filter_name)
             for amount in filter_amount:
                 filtered = np.loadtxt("data/"+folder+"/"+type+"/"+filter_name+"/"+type+"-"+filter_name+"-"+amount+".csv", delimiter=",", dtype=int)
-                a = str(np.around(similarity_2(filtered, permuted), 2))
+                a = str(np.around(simple_matching_coefficient(filtered, permuted), 2))
                 # print(a)
                 line.append(a)
                 # print(folder + "-" + type + "-" + filter_name + "-" + amount + ": " + str(matrix_similarity(permuted, filtered)))
         # print(line)
         output.append(line)
 
-np.savetxt("data/similarity_2.csv", output, delimiter=",", fmt='%s')
+np.savetxt("data/simple_matching_coefficient-procenta.csv", output, delimiter=",", fmt='%s')
