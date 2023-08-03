@@ -13,7 +13,7 @@ filters = [("square-filter",["0.2", "0.3", "0.4", "0.5", "0.35"] ),
            ("diletation-erosion-erosion-diletation",["col-matrix-3x3", "col-matrix-3x2", "unit-matrix-3x3"]), 
            ("erosion-diletation-diletation-erosion",["col-matrix-3x3", "col-matrix-3x2", "unit-matrix-3x3"]), 
            ("deleted-band", ["30", "50", "70", "90"])]
-folders = ["mushroom"] #"mushroom" export zvlast kvuli roztazeni , "paleo", "zoo", "healthcare"
+folders = ["paleo"] #"mushroom" export zvlast kvuli roztazeni , "paleo", "zoo", "healthcare"
 factors = ["5", "10", "15"]
 
 for factor in factors:
