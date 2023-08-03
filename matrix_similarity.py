@@ -12,8 +12,12 @@ def matrix_similarity(A: np.matrix, B: np.matrix) -> np.matrix:
 
 def similarity_2(A, B):
     Y = np.sum(A)
+    Z = np.sum(B)
     X = np.sum(np.logical_xor(A, B))
-    return 100*X/Y
+    result = 100 * X/Y
+    if result > 100:
+        result = 100 * X/Z
+    return result
 
 
 M = np.loadtxt("data/paleo/spectral-ordering-pearson-bfp/square-filter/spectral-ordering-pearson-bfp-square-filter-0.3.csv",
