@@ -81,10 +81,10 @@ def GreConD(I, no_of_factors=None):
 
     return A.astype(bool), B.astype(bool), k
 
-A,B,k = GreConD(np.loadtxt("data/healthcare/spectral-ordering-pearson-bfp/spectral-ordering-pearson-bfp.csv", delimiter=",", dtype=int))
-np.savetxt("data/healthcare/spectral-ordering-pearson-bfp/spectral-ordering-pearson-bfp-grecond-A.csv", A, delimiter=",")
-np.savetxt("data/healthcare/spectral-ordering-pearson-bfp/spectral-ordering-pearson-bfp-grecond-B.csv", B, delimiter=",")
-np.savetxt("data/healthcare/spectral-ordering-pearson-bfp/spectral-ordering-pearson-bfp-grecond-k.txt", [k], delimiter=",")
+A,B,k = GreConD(np.loadtxt("data/mushroom/spectral-ordering-pearson-bfp/spectral-ordering-pearson-bfp.csv", delimiter=",", dtype=int))
+np.savetxt("data/mushroom/spectral-ordering-pearson-bfp/spectral-ordering-pearson-bfp-grecond-A.csv", A, delimiter=",")
+np.savetxt("data/mushroom/spectral-ordering-pearson-bfp/spectral-ordering-pearson-bfp-grecond-B.csv", B, delimiter=",")
+np.savetxt("data/mushroom/spectral-ordering-pearson-bfp/spectral-ordering-pearson-bfp-grecond-k.txt", [k], delimiter=",")
 # print(k)
 
 # for i in [30, 50, 70, 90]:

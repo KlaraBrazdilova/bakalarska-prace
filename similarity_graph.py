@@ -27,7 +27,7 @@ def coverage_quality_smc(F1,F2):
     return coverage
 
 
-folder = "healthcare"
+folder = "mushroom"
 type = "spectral-ordering-pearson-bfp"
 filter_name = "square-filter"
 amount = "0.2"
