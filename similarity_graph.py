@@ -7,13 +7,22 @@ from matrix_product_2 import matrix_product_2
 def simple_matching_coefficient(d, b):
     return np.sum(np.logical_and(d, b)) + np.sum(np.logical_and(np.logical_not(d), np.logical_not(b))) / b.size
 
-def coverage_quality_smc(A, B, I_A,I_B):
+def coverage_quality_smc(F1,F2):
     coverage = []
+    s1 = np.array([F1[:,0]])
+    s2 = np.array([F2[:,0]])
     for i in range(1, 10):
-        coverage.append(simple_matching_coefficient(matrix_product_2(A[:,0:i], B[0:i,:]), matrix_product_2(I_A[:,0:i], I_B[0:i,:])))
-        #coverage.append(simple_matching_coefficient(matrix_product_2(A[:,i-1:i], [B[i,:]]), matrix_product_2(I_A[:,i-1:i], [I_B[i,:]])))
-        #nebo coverage.append(simple_matching_coefficient(matrix_product_2(A[:,i-1:i], [B[i,:]]), matrix_product_2(A[:,i:i+1], [B[i+1,:]])))
-        #nebo coverage.append(simple_matching_coefficient(matrix_product_2(A[:,0:i], B[0:i,:]), matrix_product_2(A[:,0:i+1], B[0:i+1,:])))
+        coverage_vector_s1 = []     
+        for vec in s1:
+            coverage_vector = []
+            for vec2 in s2:                
+                coverage_vector.append(simple_matching_coefficient(vec,vec2))
+            # print(coverage_vector)    
+            coverage_vector_s1 = np.max(coverage_vector)   
+        # print(coverage_vector_s1)     
+        coverage.append(np.sum(coverage_vector_s1) / s1.size)  
+        s1 = np.append(s1, [F1[:,i]], axis=0)
+        s2 = np.append(s2, [F2[:,i]], axis=0)
     print(coverage)
     return coverage
 
@@ -28,7 +37,7 @@ I_B = np.loadtxt("data/"+folder+"/"+type+"/"+type+"-grecond-B.csv", delimiter=",
 A = np.loadtxt("data/"+folder+"/"+type+"/"+filter_name+"/GreConD/"+type+"-"+filter_name+"-"+amount+"-grecond-A.csv", delimiter=",", dtype=int)
 B = np.loadtxt("data/"+folder+"/"+type+"/"+filter_name+"/GreConD/"+type+"-"+filter_name+"-"+amount+"-grecond-B.csv", delimiter=",", dtype=int)
 # coverage_quality_smc(A, B, I)          
-plt.plot(range(1,10), coverage_quality_smc(A, B, I_A, I_B), label=type+" - "+filter_name+" - "+amount+" - GreConD")
+plt.plot(range(1,10), coverage_quality_smc(matrix_product_2(A, B), matrix_product_2(I_A,I_B)), label=type+" - "+filter_name+" - "+amount+" - GreConD")
 
 plt.tight_layout()
 plt.margins(0,0)
