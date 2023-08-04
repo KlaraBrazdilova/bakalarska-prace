@@ -20,7 +20,7 @@ def coverage_quality_smc(F1,F2):
             # print(coverage_vector)    
             coverage_vector_s1 = np.max(coverage_vector)   
         # print(coverage_vector_s1)     
-        coverage.append(np.sum(coverage_vector_s1) / s1.size)  
+        coverage.append(1 - (np.sum(coverage_vector_s1) / s1.size)) 
         s1 = np.append(s1, [F1[i, :]], axis=0)
         s2 = np.append(s2, [F2[i, :]], axis=0)
     print(coverage)
