@@ -10,8 +10,10 @@ def simple_matching_coefficient(d, b):
 def coverage_quality_smc(A, B, I_A,I_B):
     coverage = []
     for i in range(1, 10):
-        coverage.append(simple_matching_coefficient(matrix_product_2(A[:,i-1:i], [B[i,:]]), matrix_product_2(I_A[:,i-1:i], [I_B[i,:]])))
-
+        coverage.append(simple_matching_coefficient(matrix_product_2(A[:,0:i], B[0:i,:]), matrix_product_2(I_A[:,0:i], I_B[0:i,:])))
+        #coverage.append(simple_matching_coefficient(matrix_product_2(A[:,i-1:i], [B[i,:]]), matrix_product_2(I_A[:,i-1:i], [I_B[i,:]])))
+        #nebo coverage.append(simple_matching_coefficient(matrix_product_2(A[:,i-1:i], [B[i,:]]), matrix_product_2(A[:,i:i+1], [B[i+1,:]])))
+        #nebo coverage.append(simple_matching_coefficient(matrix_product_2(A[:,0:i], B[0:i,:]), matrix_product_2(A[:,0:i+1], B[0:i+1,:])))
     print(coverage)
     return coverage
 
