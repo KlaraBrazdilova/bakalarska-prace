@@ -81,10 +81,14 @@ def GreConD(I, no_of_factors=None):
 
     return A.astype(bool), B.astype(bool), k
 
-A,B,k = GreConD(np.loadtxt("data/mushroom/spectral-ordering-pearson-bfp/spectral-ordering-pearson-bfp.csv", delimiter=",", dtype=int))
-np.savetxt("data/mushroom/spectral-ordering-pearson-bfp/spectral-ordering-pearson-bfp-grecond-A.csv", A, delimiter=",")
-np.savetxt("data/mushroom/spectral-ordering-pearson-bfp/spectral-ordering-pearson-bfp-grecond-B.csv", B, delimiter=",")
-np.savetxt("data/mushroom/spectral-ordering-pearson-bfp/spectral-ordering-pearson-bfp-grecond-k.txt", [k], delimiter=",")
+types = ["spectral-ordering-pearson-bfp", "barycenter-bfp", "alternating", "barycenter", "barycenter-bfp-alternating"]
+folders = ["paleo","zoo", "mushroom"] #"mushroom" export zvlast kvuli roztazeni , "paleo", "zoo", "healthcare"
+for folder in folders:
+    for type in types:
+        A,B,k = GreConD(np.loadtxt("data/"+folder+"/"+type+"/"+type+".csv", delimiter=",", dtype=int))
+        np.savetxt("data/"+folder+"/"+type+"/"+type+"-grecond-A.csv", A, delimiter=",")
+        np.savetxt("data/"+folder+"/"+type+"/"+type+"-grecond-B.csv", B, delimiter=",")
+        np.savetxt("data/"+folder+"/"+type+"/"+type+"-grecond-k.txt", [k], delimiter=",")
 # print(k)
 
 # for i in [30, 50, 70, 90]:
