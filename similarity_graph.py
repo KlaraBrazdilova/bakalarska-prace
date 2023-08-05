@@ -34,18 +34,18 @@ filters = [("square-filter",["0.2", "0.3", "0.4", "0.5", "0.35"] ),
            ("diletation-erosion-erosion-diletation",["col-matrix-3x3", "col-matrix-3x2", "unit-matrix-3x3"]), 
            ("erosion-diletation-diletation-erosion",["col-matrix-3x3", "col-matrix-3x2", "unit-matrix-3x3"]), 
            ("deleted-band", ["30", "50", "70", "90"])]
-folders = ["mushroom"] #"mushroom" export zvlast kvuli roztazeni , "paleo", "zoo", "healthcare"
+folders = ["paleo", "zoo", "healthcare"] #"mushroom" export zvlast kvuli roztazeni , "paleo", "zoo", "healthcare"
 
 for folder in folders:
     for type in types:
-        I_B = np.loadtxt("data/"+folder+"/"+type+"/"+type+"-grecond-B.csv", delimiter=",", dtype=int)
+        I_B = np.loadtxt("data/"+folder+"/"+type+"/"+type+"-asso-15-B.csv", delimiter=",", dtype=int)
         for filter in filters:
             filter_name, filter_amount = filter
             fig, axs = plt.subplots(1, 1, figsize=(10,5))
             for amount in filter_amount:
-                B = np.loadtxt("data/"+folder+"/"+type+"/"+filter_name+"/GreConD/"+type+"-"+filter_name+"-"+amount+"-grecond-B.csv", delimiter=",", dtype=int)
+                B = np.loadtxt("data/"+folder+"/"+type+"/"+filter_name+"/ASSO/"+type+"-"+filter_name+"-"+amount+"-asso-15-B.csv", delimiter=",", dtype=int)
                 factors = min(B.shape[0], I_B.shape[0])
-                plt.plot(range(1,factors), coverage_quality_smc(B, I_B, factors), label=type+" - "+filter_name+" - "+amount+" - GreConD")
+                plt.plot(range(1,factors), coverage_quality_smc(B, I_B, factors), label=type+" - "+filter_name+" - "+amount+" - ASSO")
 
             plt.tight_layout()
             plt.margins(0,0)
@@ -53,6 +53,27 @@ for folder in folders:
             plt.ylabel('Podobnost faktorů', fontsize="15") 
             plt.legend(fontsize="15")
             # plt.show()
-            plt.savefig("data/"+folder+"/"+type+"/"+filter_name+"/GreConD/"+type+"-"+filter_name+"-grecond-similarity.png", bbox_inches='tight')        
+            plt.savefig("data/"+folder+"/"+type+"/"+filter_name+"/ASSO/"+type+"-"+filter_name+"-asso-15-similarity.png", bbox_inches='tight')        
             matplotlib.pyplot.close()
             print("graph done")
+
+# for folder in folders:
+#     for type in types:
+#         I_B = np.loadtxt("data/"+folder+"/"+type+"/"+type+"-grecond-B.csv", delimiter=",", dtype=int)
+#         for filter in filters:
+#             filter_name, filter_amount = filter
+#             fig, axs = plt.subplots(1, 1, figsize=(10,5))
+#             for amount in filter_amount:
+#                 B = np.loadtxt("data/"+folder+"/"+type+"/"+filter_name+"/GreConD/"+type+"-"+filter_name+"-"+amount+"-grecond-B.csv", delimiter=",", dtype=int)
+#                 factors = min(B.shape[0], I_B.shape[0])
+#                 plt.plot(range(1,factors), coverage_quality_smc(B, I_B, factors), label=type+" - "+filter_name+" - "+amount+" - GreConD")
+
+#             plt.tight_layout()
+#             plt.margins(0,0)
+#             plt.xlabel('Počet faktorů', fontsize="15")
+#             plt.ylabel('Podobnost faktorů', fontsize="15") 
+#             plt.legend(fontsize="15")
+#             # plt.show()
+#             plt.savefig("data/"+folder+"/"+type+"/"+filter_name+"/GreConD/"+type+"-"+filter_name+"-grecond-similarity.png", bbox_inches='tight')        
+#             matplotlib.pyplot.close()
+#             print("graph done")
