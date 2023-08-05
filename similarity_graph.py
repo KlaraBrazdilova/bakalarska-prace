@@ -4,10 +4,6 @@ import matplotlib
 
 from matrix_product_2 import matrix_product_2
 
-def jaccard_similarity(matrix1, matrix2):
-    intersection = np.sum(np.logical_and(matrix1, matrix2))
-    union = np.sum(np.logical_or(matrix1, matrix2))
-    return intersection / union
 
 def simple_matching_coefficient(d, b):
     return (np.sum(np.logical_and(d, b)) + np.sum(np.logical_and(np.logical_not(d), np.logical_not(b)))) / d.size
@@ -28,7 +24,7 @@ def coverage_quality_smc(F1,F2,factors):
         coverage.append(np.sum(coverage_vector_s1) / s1.shape[0])
         s1 = np.append(s1, [F1[i, :]], axis=0)
         s2 = np.append(s2, [F2[i, :]], axis=0)
-    print(coverage)
+    # print(coverage)
     return coverage
 
 types = ["spectral-ordering-pearson-bfp", "barycenter-bfp", "alternating", "barycenter", "barycenter-bfp-alternating"]
@@ -38,7 +34,7 @@ filters = [("square-filter",["0.2", "0.3", "0.4", "0.5", "0.35"] ),
            ("diletation-erosion-erosion-diletation",["col-matrix-3x3", "col-matrix-3x2", "unit-matrix-3x3"]), 
            ("erosion-diletation-diletation-erosion",["col-matrix-3x3", "col-matrix-3x2", "unit-matrix-3x3"]), 
            ("deleted-band", ["30", "50", "70", "90"])]
-folders = ["healthcare"] #"mushroom" export zvlast kvuli roztazeni , "paleo", "zoo", "healthcare"
+folders = ["paleo"] #"mushroom" export zvlast kvuli roztazeni , "paleo", "zoo", "healthcare"
 
 for folder in folders:
     for type in types:
