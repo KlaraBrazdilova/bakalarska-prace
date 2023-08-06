@@ -1,12 +1,19 @@
 import numpy as np
 
 def barycenter(M):
+    """
+    Barycenter method for sorting rows and columns of a matrix to banded structure.
+
+    input: binary matrix M
+    output: banded binary matrix M
+    """
     [m, n] = M.shape
     indexes_cols = np.arange(1, n+1)
     indexes_rows = np.arange(1, m+1)
     A = M.copy()
     old = M.copy()
     trans = False
+
     while 1:
         cost = np.zeros(A.shape[0])
 
@@ -28,4 +35,5 @@ def barycenter(M):
         
     if trans:
         A = A.transpose()
+
     return A

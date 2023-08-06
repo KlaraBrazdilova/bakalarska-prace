@@ -10,7 +10,7 @@ filters = [("square-filter",["0.2", "0.3", "0.4", "0.5", "0.35"] ),
            ("erosion-diletation",["col-matrix-3x3", "col-matrix-3x2", "unit-matrix-3x3"]), 
            ("diletation-erosion-erosion-diletation",["col-matrix-3x3", "col-matrix-3x2", "unit-matrix-3x3"]), 
            ("erosion-diletation-diletation-erosion",["col-matrix-3x3", "col-matrix-3x2", "unit-matrix-3x3"])]
-folders = ["paleo", "zoo", "healthcare"] #"mushroom" export zvlast kvuli roztazeni , "paleo", "zoo", "healthcare"
+folders = ["paleo", "zoo", "healthcare"] #"mushroom" export zvlast kvuli roztazeni
 newcmp_black_white = matplotlib.colors.LinearSegmentedColormap.from_list("", ['white','black'])
 newcmp = matplotlib.colors.LinearSegmentedColormap.from_list("", ['white','black', 'darkcyan'])
 
@@ -27,7 +27,6 @@ for folder in folders:
                 fig, axs = plt.subplots(1, 1, figsize=(12, 9)) 
                 plt.tight_layout()
                 axs.imshow(filtered, cmap=newcmp_black_white) #pro mushroom aspect='auto', interpolation='nearest'
-                # axs.set_title(folder + "-" + type + "-" + filter_name + "-" + amount)
                 plt.savefig("data/"+folder+"/"+type+"/"+filter_name+"/"+type+"-"+filter_name+"-"+amount+".png", bbox_inches='tight', dpi=300)       
                 matplotlib.pyplot.close()
 
@@ -40,7 +39,6 @@ for folder in folders:
                 fig, axs = plt.subplots(1, 1, figsize=(12, 9))
                 plt.tight_layout() 
                 axs.imshow(changes, cmap=newcmp) # pro mushroom aspect='auto', interpolation='nearest'
-                # axs.set_title(folder + "-" + type + "-" + filter_name + "-" + amount + "-changes")   
                 plt.savefig("data/"+folder+"/"+type+"/"+filter_name+"/"+type+"-"+filter_name+"-"+amount+"-changes.png", bbox_inches='tight', dpi=300)
                 matplotlib.pyplot.close()  
 
