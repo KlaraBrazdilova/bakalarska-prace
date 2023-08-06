@@ -1,5 +1,12 @@
 
 def max_sub_array(A):
+    """
+    Compute the maximum subarray of an array A.
+    
+    Input: array A
+    Output: array with start and end index of the maximum subarray
+    """
+
     n = len(A)    
     max_ending_here = A[0]
     max_so_far = A[0]

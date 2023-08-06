@@ -20,10 +20,11 @@ def diletation_erosion_erosion_diletation(matrix, mask):
 def erosion_diletation_diletation_erosion(matrix, mask):
     return erosion(diletation(diletation(erosion(matrix, mask), mask), mask), mask)
 
-matrixes = [("col-matrix-3x2", np.array([[0, 1, 0], [0, 1, 0]])), ("unit-matrix-3x3", np.array([[1, 0, 0], [0, 1, 0], [0, 0, 1]])), ("col-matrix-3x3", np.array([[0, 1, 0], [0, 1, 0], [0, 1, 0]]))] 
-
+matrixes = [("col-matrix-3x2", np.array([[0, 1, 0], [0, 1, 0]])), 
+            ("unit-matrix-3x3", np.array([[1, 0, 0], [0, 1, 0], [0, 0, 1]])), 
+            ("col-matrix-3x3", np.array([[0, 1, 0], [0, 1, 0], [0, 1, 0]]))]
 files = ["paleo", "zoo", "mushroom", "healthcare"]
-types = ["spectral-ordering-pearson-bfp-fix"]
+types = ["spectral-ordering-pearson-bfp", "barycenter-bfp", "alternating", "barycenter", "barycenter-bfp-alternating"]
 filters = [{"name":"deleted-band", "function": banded_ones, "amouts": [("30", 30), ("50", 50), ("70", 70), ("90", 90)]}, 
            {"name":"square-filter", "function": square_filter, "amouts": [("0.2", 0.2), ("0.3", 0.3), ("0.4", 0.4), ("0.5", 0.5), ("0.35", 0.35)]}, 
            {"name":"diletation-erosion", "function": diletation_erosion, "amouts": matrixes}, 
