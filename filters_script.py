@@ -6,7 +6,7 @@ from erosion import erosion
 from square_fillter import square_filter
 from deleting_ones_banded_mask import banded_ones
 from asso.asso import asso2
-from grecond_chatgpt import GreConD
+from grecond_efficient import GreConD
 
 def diletation_erosion(matrix, mask):
     return diletation(erosion(matrix, mask), mask)
@@ -37,8 +37,6 @@ factors = [5, 10, 15]
 for file in files:
     for type in types:
         M = np.loadtxt("data/"+file+"/"+type+".csv", delimiter=",", dtype=int)
-        # M = np.loadtxt("data/"+file+"/"+type+"/"+type+".csv",
-        #                                 delimiter=",", dtype=int)
         for filter in filters:
             filter_name = filter["name"]
             filter_amount = filter["amouts"]

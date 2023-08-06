@@ -1,9 +1,7 @@
 import copy
-from numpy import matrix, sort, zeros, array, intersect1d, append, transpose
+from numpy import matrix, sort, zeros, array, intersect1d, append
 import numpy as np
 from functools import reduce
-from matrix_product import matrix_product
-from matrix_similarity import matrix_similarity
 
 
 def down_arrow(U: matrix, indexes):

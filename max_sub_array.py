@@ -1,8 +1,7 @@
-
 def max_sub_array(A):
     """
     Compute the maximum subarray of an array A.
-    
+
     Input: array A
     Output: array with start and end index of the maximum subarray
     """
