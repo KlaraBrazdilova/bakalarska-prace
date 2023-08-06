@@ -81,28 +81,11 @@ def GreConD(I, no_of_factors=None):
 
     return A.astype(bool), B.astype(bool), k
 
-# A,B,k = GreConD(np.loadtxt("data/mushroom/spectral_ordering_pearson-bfp.csv", delimiter=",", dtype=int))
-# print(k)
-
-# for i in [30, 50, 70, 90]:
-#     for j in ["spectra-ordering-pearson-bfp", "barycenter-bfp", "alternating"]:
-#         for k in ["paleo", "zoo"]:
-#             slozka = k
-#             typ = j
-#             cislo = i
-#             M = np.loadtxt("data/"+slozka+"/"+typ+"-deleted-band-"+ str(cislo) +".csv",
-#                             delimiter=",", dtype=int)
-#             A, B, k = GreConD(M)
-#             print(k)
-#             np.savetxt("data/"+slozka+"/grecond-chat-A-"+typ+"-deleted-band-"+ str(cislo) +".csv", A, delimiter=",")
-#             np.savetxt("data/"+slozka+"/grecond-chat-B-"+typ+"-deleted-band-"+ str(cislo) +".csv", B, delimiter=",")
-#             np.savetxt("data/"+slozka+"/grecond-chat-k-"+typ+"-deleted-band-"+ str(cislo) +".txt", np.array([k]), fmt="%d")
-
-# M = np.loadtxt("data/zoo/alternating-deleted-band-90.csv",
-#                  delimiter=",", dtype=int)
-# A = np.loadtxt("data/zoo/grecond-chat-A-alternating-deleted-band-90.csv", delimiter=",", dtype=int)
-# B = np.loadtxt("data/zoo/grecond-chat-B-alternating-deleted-band-90.csv", delimiter=",", dtype=int)
-# puvodni = np.loadtxt("data/zoo/zoo.csv", delimiter=",", dtype=int)
-# i = matrix_product(A, B)
-# print(matrix_similarity(M, i))
-# print(matrix_similarity(puvodni, i))
+types = ["spectral-ordering-pearson-bfp", "barycenter-bfp", "alternating", "barycenter", "barycenter-bfp-alternating"]
+folders = ["paleo","zoo", "mushroom"] #"mushroom" export zvlast kvuli roztazeni , "paleo", "zoo", "healthcare"
+for folder in folders:
+    for type in types:
+        A,B,k = GreConD(np.loadtxt("data/"+folder+"/"+type+"/"+type+".csv", delimiter=",", dtype=int))
+        np.savetxt("data/"+folder+"/"+type+"/"+type+"-grecond-A.csv", A, delimiter=",")
+        np.savetxt("data/"+folder+"/"+type+"/"+type+"-grecond-B.csv", B, delimiter=",")
+        np.savetxt("data/"+folder+"/"+type+"/"+type+"-grecond-k.txt", [k], delimiter=",")
