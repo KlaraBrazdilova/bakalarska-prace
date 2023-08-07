@@ -22,4 +22,4 @@ Veškteré výstupní soubory této práce se nachází ve složce data uspořá
 
 ### Obrazová část výsledků
 Aby bylo možné přehledně prohlížet obrázky vzniklé v této práci byla vytvořena jednoduchá webová stránka v jazyce php, která se nachází ve složce web. Pro spuštění stránky je za potřebí mít nainstalovaný lokální server například Apache
-. Stránka se nachází také na adrese: 
+. Stránka se nachází také na adrese: https://apollo.inf.upol.cz/~brazdilova/bakalarka
