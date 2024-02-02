@@ -1,5 +1,5 @@
 # Návod na spuštění a popis příloh
-## Využití pásové struktury pro předzpracování dat při dekompozici binárních matic
+## Použití pásové struktury pro předzpracování dat při dekompozici binárních matic
 
 Veškeré algoritmy zmíněné v textu práce jsou implementovány v jazyce Python za použítí knihoven NumPy a Matplotlib. Pro jejich spuštění je nutná instalace těchto knihoven pomocí příkazů:
 
